@@ -1,0 +1,14 @@
+<config>
+
+    <delim><![CDATA[-{3,}]]></delim>
+
+    <values>
+        <!-- here we reuse the line pattern, only we pull out different group values -->
+        <value id="local_port"><![CDATA[Interface\s*:\s*(.+),\s+Port\s+ID\s+\(outgoing\s+port\)\s*:\s*]]></value>
+        <value id="remote_ip"><![CDATA[IP\s+[Aa]ddress\s*:\s*([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})]]></value>
+        <value id="remote_port"><![CDATA[Port\s+ID\s+\(outgoing port\)\s*:\s*(\S+)]]></value>
+        <value id="remote_id"><![CDATA[Device\s+ID\s*:\s*(\S+)]]></value>
+        <value id="remote_platform"><![CDATA[Platform\s*:\s*(.+),\s+Capabilities\s*:\s*]]></value>
+        <value id="remote_version"><![CDATA[Version\s*:\s*(.+)[Aa]dvertisement\s+version:]]></value>
+    </values>
+</config>

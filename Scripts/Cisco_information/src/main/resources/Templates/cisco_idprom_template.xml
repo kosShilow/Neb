@@ -1,0 +1,11 @@
+<config>
+
+    <delim><![CDATA[===]]></delim>
+
+    <values>
+        <!-- here we reuse the line pattern, only we pull out different group values -->
+        <value id="module"><![CDATA[<folder>(.+)</folder>]]></value>
+        <value id="product_number"><![CDATA[<item>Product\s+[Nn]umber\s*=\s*(\S+)</item>]]></value>
+        <value id="serial_number"><![CDATA[<item>Serial\s+[Nn]umber\s*=\s*(\S+)</item>]]></value>
+    </values>
+</config>

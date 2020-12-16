@@ -1,0 +1,26 @@
+<!--
+See: cisco_version_example.txt
+-->
+<config>
+    <!-- There is only one record in this file -->
+    <delim one-record="true" />
+    <searches>
+        <!-- Some rules for finding text, to make the values a little easier below -->
+        <search id="text"><![CDATA[(\S+)]]></search>
+        <search id="register"><![CDATA[0{stringToEOL}]]></search>
+        <search id="string"><![CDATA[(.+?)]]></search>
+        <search id="stringToEOL"><![CDATA[(.+?)[\n\r]]]></search>
+        <search id="datePattern"><![CDATA[\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2} [AP]M]]></search>
+    </searches>
+    <values>
+        <!-- some fields that are reusing the patterns above -->
+        <value id="version"><![CDATA[system:\s+version\s+{stringToEOL}]]></value>
+        <value id="uptime"><![CDATA[uptime is {stringToEOL}]]></value>
+        <value id="reloadReason"><![CDATA[Reason: {stringToEOL}]]></value>
+        <value id="reloadTime"><![CDATA[Last reset at \d+ usecs after\s+{stringToEOL}]]></value>
+        <value id="imageFile"><![CDATA[system image file is:\s+{stringToEOL}]]></value>
+        <value id="model"><![CDATA[cisco {string} .* with]]></value>
+        <value id="memory"><![CDATA[with {string} kB of memory]]></value>
+	<value id="serialnumber"><![CDATA[Processor Board ID\s+{stringToEOL}]]></value>
+    </values>
+</config>

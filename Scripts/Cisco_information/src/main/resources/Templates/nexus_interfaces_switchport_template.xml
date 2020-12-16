@@ -1,0 +1,13 @@
+<config>
+    <delim><![CDATA[===]]></delim>
+
+    <values>
+        <!-- here we reuse the line pattern, only we pull out different group values -->
+        <value id="interface"><![CDATA[Name\s*:\s*(.+?)</folder>[\r\n]]]></value>
+        <value id="switchport"><![CDATA[Switchport:\s*(.+?)</item>[\r\n]]]></value>
+        <value id="mode"><![CDATA[Operational Mode:\s*(.+?)</item>[\r\n]]]></value>
+        <value id="access_vlan"><![CDATA[Access Mode VLAN:\s*(.+?)</item>[\r\n]]]></value>
+        <value id="trunk_vlans"><![CDATA[Trunking VLANs Allowed:\s*(.+?)</item>[\r\n]]]></value>
+        <value id="native_vlan"><![CDATA[Trunking Native Mode VLAN:\s*(.+?)</item>[\r\n]]]></value>
+    </values>
+</config>

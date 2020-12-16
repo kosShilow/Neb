@@ -1,0 +1,14 @@
+<config>
+
+    <delim><![CDATA[-+]]></delim>
+
+    <values>
+        <!-- here we reuse the line pattern, only we pull out different group values -->
+        <value id="remote_ip"><![CDATA[IP:\s*([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})[\n\r]]]></value>
+        <value id="remote_id"><![CDATA[Port id\s*[:-]\s*(.+?)[\n\r]]]></value>
+        <value id="remote_port_description"><![CDATA[Port Description\s*[:-]\s*(.+?)[\n\r]]]></value>
+        <value id="remote_system_name"><![CDATA[System Name\s*[:-]\s*(.+?)[\n\r]]]></value>
+        <value id="remote_system_description"><![CDATA[System Description:\s*[\n\r](.+)[\n\r]Time remaining:]]></value>
+        <value id="remote_chassis_id"><![CDATA[Chassis id\s*[:-]\s*(.+?)[\n\r]]]></value>
+    </values>
+</config>

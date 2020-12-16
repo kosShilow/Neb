@@ -1,0 +1,11 @@
+<config>
+    <delim><![CDATA[===]]></delim>
+
+    <values>
+        <!-- here we reuse the line pattern, only we pull out different group values -->
+        <value id="interface"><![CDATA[^<folder>(.+?)\s+(.+?)</folder>]]></value>
+        <value id="acl-in"><![CDATA[Inbound\s+access\s+list\s+is\s+(.+?)[\n\r]]]></value>
+        <value id="acl-out"><![CDATA[Outgoing\s+access\s+list\s+is\s+(.+?)[\n\r]]]></value>
+        <value id="data"><![CDATA[(.+)]]></value>
+    </values>
+</config>

@@ -1,0 +1,13 @@
+<config>
+    <delim><![CDATA[-+]]></delim>
+
+    <values>
+        <!-- here we reuse the line pattern, only we pull out different group values -->
+        <value id="interface"><![CDATA[^(.+?)\s*:\s*.*[\r\n]]]></value>
+        <value id="state"><![CDATA[Port state\s*=\s*(.+?)[\r\n]]]></value>
+        <value id="protocol"><![CDATA[Protocol\s*=\s*(.+?)[\r\n]]]></value>
+        <value id="mode"><![CDATA[Mode\s*=\s*(.+?)\s+.*]]></value>
+        <value id="port-channel"><![CDATA[Pseudo port-channel\s*=\s*(.+?)\s+.*]]></value>
+        <value id="data"><![CDATA[(.+)]]></value>
+    </values>
+</config>

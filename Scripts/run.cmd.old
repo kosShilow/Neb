@@ -1,0 +1,9 @@
+@echo off
+set home=C:/Users/Public/Neb_new/Scripts
+set python=C:/Python27/python.exe
+
+echo %python% %home%/filter_nodes.py
+%python% %home%/filter_nodes.py
+
+echo %python% %home%/image_nodes.py
+%python% %home%/image_nodes.py

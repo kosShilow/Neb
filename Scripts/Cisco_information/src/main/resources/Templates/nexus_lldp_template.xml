@@ -1,0 +1,16 @@
+<config>
+
+    <delim><![CDATA[===]]></delim>
+
+    <values>
+        <!-- here we reuse the line pattern, only we pull out different group values -->
+        <value id="interface"><![CDATA[Port id\s*:\s*(.+?)[\r\n]]]></value>
+        <value id="local_port"><![CDATA[Local\s+[Pp]ort\s+id: (\S+?)[\r\n]]]></value>
+        <value id="remote_ip"><![CDATA[Management\s+[Aa]ddress\s*:\s*([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})[\n\r]]]></value>
+        <value id="remote_port_id"><![CDATA[Port\s+[Ii]d\s*:\s*(\S+?)[\r\n]]]></value>
+        <value id="remote_port_description"><![CDATA[Port\s+[Dd]escription\s*:\s*(\S+?)[\r\n]]]></value>
+        <value id="remote_id"><![CDATA[System\s+[Nn]ame\s*:\s*(\S+?)[\r\n]]]></value>
+        <value id="remote_chassis_id"><![CDATA[Chassis\s+[Ii]d\s*:\s*(\S+?)[\r\n]]]></value>
+        <value id="remote_version"><![CDATA[System\s+[Dd]escription\s*:\s*(.+)\s*Technical\s+Support\s*:\s*]]></value>
+    </values>
+</config>

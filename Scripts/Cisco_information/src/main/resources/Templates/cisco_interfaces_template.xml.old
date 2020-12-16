@@ -1,0 +1,19 @@
+<config>
+
+    <delim><![CDATA[===]]></delim>
+
+    <values>
+        <!-- here we reuse the line pattern, only we pull out different group values -->
+        <value id="interface" group="1"><![CDATA[<folder>(\S+) is .*?(down|up), line protocol is (down|up).+?</folder>[\n\r]]]></value>
+        <value id="admin_status" group="2"><![CDATA[<folder>(\S+) is .*?(down|up), line protocol is (down|up).+?</folder>[\n\r]]]></value>
+        <value id="operation_status" group="3"><![CDATA[<folder>(\S+) is .*?(down|up), line protocol is (down|up).+?</folder>[\n\r]]]></value>
+        <value id="hardware" group="1"><![CDATA[<item>Hardware is (.+?), address is ([\da-f]{4}\.[\da-f]{4}\.[\da-f]{4}).+?</item>]]></value>
+        <value id="mac" group="2"><![CDATA[<item>Hardware is (.+?), address is ([\da-f]{4}\.[\da-f]{4}\.[\da-f]{4}).+?</item>]]></value>
+        <value id="ip"><![CDATA[<item>Internet address is ([\d\./]+)</item>]]></value>
+        <value id="duplex" group="1"><![CDATA[<item>(\w+-duplex), (.+?), media type is (.+?)</item>]]></value>
+        <value id="speed" group="2"><![CDATA[<item>(\w+-duplex), (.+?), media type is (.+?)</item>]]></value>
+        <value id="media-type" group="3"><![CDATA[<item>(\w+-duplex), (.+?), media type is (.+?)</item>]]></value>
+        <value id="mtu"><![CDATA[<item>MTU (\d+) bytes,.+?</item>]]></value>
+        <value id="description"><![CDATA[<item>Description: (.+?)</item>]]></value>
+    </values>
+</config>

@@ -138,6 +138,8 @@ mas = ['.*C3560.*', 'images/Cisco/CS3550.png']
 replaces.append(mas)
 mas = ['CS3650.*', 'images/Cisco/CS3550.png']
 replaces.append(mas)
+mas = ['.*3650.*', 'images/Cisco/CS3550.png']
+replaces.append(mas)
 mas = ['.*CS3560.*', 'images/Cisco/CS3550.png']
 replaces.append(mas)
 mas = ['.*Cisco\s+3640.*', 'images/Cisco/CS3640.png']
@@ -157,6 +159,10 @@ replaces.append(mas)
 mas = ['C9200.*', 'images/Cisco/CS3800.png']
 replaces.append(mas)
 mas = ['C9300.*', 'images/Cisco/CS3800.png']
+replaces.append(mas)
+mas = ['.*9300.*', 'images/Cisco/CS3800.png']
+replaces.append(mas)
+mas = ['SW-9K.*', 'images/Cisco/CS3800.png']
 replaces.append(mas)
 mas = ['C9500.*', 'images/Cisco/CS3800.png']
 replaces.append(mas)
@@ -519,7 +525,7 @@ if neb_info:
 
         if nodes_information:
             for node in nodes_information:
-                # if node == "10.96.115.50":
+                # if node == "10.17.229.254":
                 #     print(node)
                 image_old = nodes_information.get(node).get("image")
                 general = nodes_information.get(node).get("general")

@@ -185,10 +185,17 @@ for area in neb_info:
     # mac_ip_port = neb_info.get(area).get("mac_ip_port")
     if nodes_information:
         for node in nodes_information:
+            node_info = nodes_information[node]
+            if node_info.get("external") and node_info.get("external").get("information") and \
+                node_info.get("external").get("information").get("antena"):
+                # set nodes_informations
+                url_add_node = "http://" + neb_server + ":" + neb_server_port + "/set?file=neb.map.pre&key=/" + area + "/nodes_information/" + node + "/general/model"
+                data = "AP"
+                result = requests.post(url_add_node, data, headers={"user": user, "passwd": passwd}, verify=False)
+
             if ip_mac.get(node):
                 ip = node
                 mac = ip_mac.get(node)
-                node_info = nodes_information[node]
                 if node_info.get("general"):
                     # node_info.get("general")["model"] = "AP"
                     # node_info.get("general")["base_address"] = mac

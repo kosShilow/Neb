@@ -94,6 +94,8 @@ mas = ['.*Cisco\s+2851.*', 'images/Cisco/CS2800.png']
 replaces.append(mas)
 mas = ['.*C2940.*', 'images/Cisco/CS2940.png']
 replaces.append(mas)
+mas = ['.*CS2940.*', 'images/Cisco/CS2940.png']
+replaces.append(mas)
 mas = ['.*C2950.*', 'images/Cisco/CS2950.png']
 replaces.append(mas)
 mas = ['.*CS2950.*', 'images/Cisco/CS2950.png']

@@ -85,6 +85,8 @@ exclude_sysname.append('not advertised.*')
 exclude_sysname.append('^[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]\.[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]\.[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]$')
 exclude_sysname.append('^[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]$')
 exclude_sysname.append('--')
+exclude_sysname.append('Switch')
+exclude_sysname.append('switch')
 ###################################################
 
 def get_neb_info():
@@ -284,7 +286,7 @@ for area in neb_info:
     if nodes_information:
         for node in nodes_information:
             # print("node - "+node)
-            # if node == "10.96.64.88":
+            # if node == "Switch":
             #     print("node - " + node)
             general = nodes_information.get(node).get("general")
             if general:
@@ -383,13 +385,15 @@ for area in neb_info:
                                     if link[3] == node:
                                         neighbour_node[link[0]] = link[0]
 
-                            # if not found_mip and num_link <= 1:
-                            if len(neighbour_node) <= 1:
-                                nodes_delete.append(node)
-                                # print("node delete: " + node + ": " + str(general))
-                                out1.write("node: " + node + ": " + str(general)+'\n')
-                            else:
-                                out2.write("node: " + node + ": " + str(general) + '\n')
+                            nodes_delete.append(node)
+                            out1.write("node: " + node + ": " + str(general)+'\n')
+                            # # if not found_mip and num_link <= 1:
+                            # if len(neighbour_node) <= 1:
+                            #     nodes_delete.append(node)
+                            #     # print("node delete: " + node + ": " + str(general))
+                            #     out1.write("node: " + node + ": " + str(general)+'\n')
+                            # else:
+                            #     out2.write("node: " + node + ": " + str(general) + '\n')
                         else:
                             out2.write("node: " + node + ": " + str(general)+'\n')
                     else:

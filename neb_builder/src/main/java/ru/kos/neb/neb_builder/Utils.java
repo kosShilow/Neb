@@ -2245,6 +2245,8 @@ public class Utils {
         }
         ArrayList<ArrayList> node_community_version_oid_list1 = new_node_community_version_oid_list;        
         
+        Waiting(Neb.pause_fast_and_carefully_mac_scanning);
+        
         // carefully mac address scanning
         for(int i=0; i<Neb.retries_mac; i++) {
             if(node_community_version_oid_list1.size() > 0) {

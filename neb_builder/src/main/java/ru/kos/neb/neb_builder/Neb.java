@@ -65,7 +65,8 @@ public class Neb {
     private static final int limit_retries_testing = 5;
     private static final int time_lag = 20; // sec.
     private static double precession_limit = 0.02;
-    private static boolean discovery_networks = true;
+//    private static boolean discovery_networks = true;
+    public static long pause_fast_and_carefully_mac_scanning = 0; //sec 
     private static boolean extended_discovery_link = true;
     public static int timeout = 10; // timeout network.
     public static int retries = 1; // network timeout 1 sec.  
@@ -445,6 +446,8 @@ public class Neb {
                             //                            int timeout=Neb.timeout;
                             //                            int retries=Neb.retries;
                             String discovery_networks = ((String) area.getValue().get("discovery_networks")).toLowerCase();
+                            long pause_fast_and_carefully_mac_scanning = ((Long) area.getValue().get("pause_fast_and_carefully_mac_scanning"));
+
                             if (cfg.get("areas") != null && ((Map) cfg.get("areas")).get(area_name) != null) {
                                 Long timeout_options = (Long) ((Map) ((Map) cfg.get("areas")).get(area_name)).get("timeout");
                                 Long retries_options = (Long) ((Map) ((Map) cfg.get("areas")).get(area_name)).get("retries");

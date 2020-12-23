@@ -2229,6 +2229,20 @@ public class Utils {
 //            System.out.println("retries="+i+" - "+"num_mac_records="+num_mac_records);
 
         // check nodes not return mac address
+        ArrayList<ArrayList> node_community_version_oid_list1 = new ArrayList();
+        for(String[] item : WalkPool.error_nodes) {
+            ArrayList list_tmp = new ArrayList();
+            list_tmp.add(item[0]); 
+            ArrayList<String> list_tmp1 = new ArrayList();
+            list_tmp1.add(item[1]);
+            list_tmp.add(list_tmp1); 
+            list_tmp.add(item[2]);
+            list_tmp.add(item[3]);
+            logger.Println("Error mac fast scanning from node: "+item[0]+", "+item[1]+", "+item[2]+", "+item[3], logger.DEBUG);
+            node_community_version_oid_list1.add(list_tmp);
+        }
+        
+        // check nodes not return mac address
         ArrayList<ArrayList> new_node_community_version_oid_list = new ArrayList();
         for(ArrayList node_community_version_oid : node_community_version_oid_list) {
             String node = (String)node_community_version_oid.get(0);
@@ -2243,13 +2257,27 @@ public class Utils {
                 logger.Println("From nodes - "+node+" not receive mac address list from fast scanning!!!", logger.DEBUG);
             }
         }
-        ArrayList<ArrayList> node_community_version_oid_list1 = new_node_community_version_oid_list;        
-        
-        Waiting(Neb.pause_fast_and_carefully_mac_scanning);
-        
+
+        for(ArrayList node_community_version_oid : new_node_community_version_oid_list) {
+            boolean found = false;
+            for(ArrayList node_community_version_oid1 : node_community_version_oid_list1) {
+                if(node_community_version_oid.get(0).equals(node_community_version_oid1.get(0))) {
+                    found = true;
+                    break;
+                }
+            }
+            if(!found)
+                node_community_version_oid_list1.add(node_community_version_oid);
+        }        
+       
+        for(ArrayList node_community_version_oid : node_community_version_oid_list1) {
+            logger.Println("Adding node for carefully scaning - "+node_community_version_oid.get(0), logger.DEBUG);
+        }
+
         // carefully mac address scanning
         for(int i=0; i<Neb.retries_mac; i++) {
             if(node_community_version_oid_list1.size() > 0) {
+                Waiting(Neb.pause_fast_and_carefully_mac_scanning);
                 num_mac_records=0;
                 res = walkPool.GetNodeMultiCommunityVersionOidNotBulk(node_community_version_oid_list1, snmp_port, Neb.timeout_mac, Neb.retries_mac);
                 for (Map.Entry<String, ArrayList> entry : res.entrySet()) {
@@ -2309,6 +2337,7 @@ public class Utils {
                 logger.Println("retries="+i+" - "+"num_mac_records="+num_mac_records, logger.DEBUG);
 //            System.out.println("retries="+i+" - "+"num_mac_records="+num_mac_records);
 
+
                 // check nodes not return mac address
                 new_node_community_version_oid_list = new ArrayList();
                 for(ArrayList node_community_version_oid : node_community_version_oid_list1) {
@@ -2324,7 +2353,38 @@ public class Utils {
                         logger.Println("From nodes - "+node+" not receive mac address list from carefully scanning!!!", logger.DEBUG);
                     }
                 }
-                node_community_version_oid_list1 = new_node_community_version_oid_list;
+//                node_community_version_oid_list1 = new_node_community_version_oid_list;
+
+                // check nodes not return mac address
+                node_community_version_oid_list1 = new ArrayList();
+                for(String[] item : WalkPool.error_nodes) {
+                    ArrayList list_tmp = new ArrayList();
+                    list_tmp.add(item[0]); 
+                    ArrayList<String> list_tmp1 = new ArrayList();
+                    list_tmp1.add(item[1]);
+                    list_tmp.add(list_tmp1);                      
+                    list_tmp.add(item[2]);
+                    list_tmp.add(item[3]);
+                    logger.Println("Error mac carefully scanning from node: "+item[0]+", "+item[1]+", "+item[2]+", "+item[3], logger.DEBUG);
+                    node_community_version_oid_list1.add(list_tmp);
+                } 
+                
+                for(ArrayList node_community_version_oid : new_node_community_version_oid_list) {
+                    boolean found = false;
+                    for(ArrayList node_community_version_oid1 : node_community_version_oid_list1) {
+                        if(node_community_version_oid.get(0).equals(node_community_version_oid1.get(0))) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found)
+                        node_community_version_oid_list1.add(node_community_version_oid);
+                }
+                
+                for(ArrayList node_community_version_oid : node_community_version_oid_list1) {
+                    logger.Println("Adding node for carefully scaning - "+node_community_version_oid.get(0), logger.DEBUG);
+                }                
+                
             }
         }
         /////////////////////////////////////////////////
@@ -2694,19 +2754,21 @@ public class Utils {
     public void Waiting(long wait_timeout) {
         long start_time = System.currentTimeMillis();
         String backspace="";
-        while (true)
-        {
-            long stop_time = System.currentTimeMillis();
-            System.out.print(backspace);
-            String out = "Elapsed time : " + String.valueOf((stop_time - start_time) / 1000) + " sec.\t\tFrom : " + wait_timeout + " sec.";
-            System.out.print(out);
-            for(int i=0; i<out.length(); i++) backspace=backspace+"\b";
-            if ((stop_time - start_time) / 1000 > wait_timeout)
+        if(wait_timeout > 0) {
+            while (true)
             {
-                System.out.println("");
-                break;
+                long stop_time = System.currentTimeMillis();
+                System.out.print(backspace);
+                String out = "Elapsed time : " + String.valueOf((stop_time - start_time) / 1000) + " sec.\t\tFrom : " + wait_timeout + " sec.";
+                System.out.print(out);
+                for(int i=0; i<out.length(); i++) backspace=backspace+"\b";
+                if ((stop_time - start_time) / 1000 > wait_timeout)
+                {
+                    System.out.println("");
+                    break;
+                }
+                try { Thread.sleep(10000); } catch (InterruptedException e) { }
             }
-            try { Thread.sleep(10000); } catch (InterruptedException e) { }
         }
         
     }
@@ -6927,11 +6989,19 @@ public class Utils {
             if(interfaces != null && interfaces.size() > 0) {
                 for(Map.Entry<String, Map> entry1 : interfaces.entrySet()) {
                     String iface_name=entry1.getKey();
-                    ArrayList<String> ip_list = (ArrayList<String>)entry1.getValue().get("ip");
-                    if(ip_list != null && ip_list.size() > 0) {
+                    ArrayList<String> ip_list = new ArrayList();
+                    if(entry1.getValue().get("ip") != null) {
+                        if(entry1.getValue().get("ip") instanceof String) {
+                            ip_list.add((String)entry1.getValue().get("ip"));
+                        } else if(entry1.getValue().get("ip") instanceof ArrayList) {
+                            ip_list = (ArrayList<String>)entry1.getValue().get("ip");
+                        }
+                    }
+                    if(ip_list.size() > 0) {
                         for(String ip : ip_list) {
                             ip=ip.split("[/\\s]")[0];
-                            ip_node.put(ip, ip);
+                            if(ip.matches("\\d+\\.\\d+\\.\\d+\\.\\d+"))
+                                ip_node.put(ip, ip);
                         }
                     }
                 }

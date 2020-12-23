@@ -70,9 +70,11 @@ public class WalkPoolNGTest {
         ArrayList<ArrayList> node_multicommunity_version_oid_list = new ArrayList();
         ArrayList node_multicommunity_version_oid = new ArrayList();
         node_multicommunity_version_oid.add("10.96.115.254");
+//        node_multicommunity_version_oid.add("10.96.250.113");
         ArrayList multicommunity_list = new ArrayList(); 
-        multicommunity_list.add("20fyufhf80@1");
-        multicommunity_list.add("20fyufhf80@10");
+        multicommunity_list.add("20fyufhf80");
+//        multicommunity_list.add("20fyufhf80@1");
+//        multicommunity_list.add("20fyufhf80@10");
         node_multicommunity_version_oid.add(multicommunity_list);
         node_multicommunity_version_oid.add("2");
         node_multicommunity_version_oid.add(oid);

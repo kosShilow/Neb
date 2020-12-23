@@ -444,8 +444,8 @@ public class Main extends PFrame {
                     int i = 0;
                     for(String line : lines) {
                         String[] mas = line.split(";");
-                        if(mas.length == 3) {
-                            dlm.addElement(mas[0]);
+                        if(mas.length == 4) {
+                            dlm.addElement(mas[0]+" - "+mas[3]+"("+mas[2]+")");
                             index_area_node.put(i, new String[] { mas[0], mas[1], mas[2] });
                             i = i + 1;
                         }

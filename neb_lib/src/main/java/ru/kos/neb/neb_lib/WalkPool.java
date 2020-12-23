@@ -45,6 +45,7 @@ public class WalkPool {
     public int bulk_size = 10;
 
     private final Map<String, ArrayList> result = new HashMap<String, ArrayList>();
+    public static ArrayList<String[]> error_nodes = new ArrayList();
     
     public WalkPool() {
         // start logging
@@ -633,6 +634,7 @@ class WorkerMulticommunity implements Runnable {
 //    }
     
     private void Send(ArrayList node_multicommunity_version, String oid) {
+        WalkPool.error_nodes.clear();
         try {
             String node = (String)node_multicommunity_version.get(0);
             ArrayList<String> community_list = (ArrayList<String>)node_multicommunity_version.get(1);
@@ -661,8 +663,8 @@ class WorkerMulticommunity implements Runnable {
                         pdu.setType(PDU.GETNEXT);
 
                     ResponseEvent event = WalkPool.snmp.send(pdu, target, null);
-                    PDU response = event.getResponse();
-                    if (event != null && response != null) {
+                    PDU response = event.getResponse();      
+                    if (event != null && response != null && response.toArray().length == 20) {
                         boolean next_send=false;
                         String cur_OID="";
                         String ip_port = event.getPeerAddress().toString();
@@ -686,12 +688,14 @@ class WorkerMulticommunity implements Runnable {
                                         }
                                         else {
                                             next_send=false;
+//                                            System.out.println("End ok.");
                                             break;                                    
                                         }
                                     }                                    
                                 }
                                 else {
                                     next_send=false;
+//                                    System.out.println("End ok.");
                                     break;
                                 }
                             }
@@ -705,8 +709,11 @@ class WorkerMulticommunity implements Runnable {
                             }
 
                         }
-                    } else
+                    } else {
+                        WalkPool.error_nodes.add(new String[] {node, community, version, oid});
+//                        System.out.println("Timeout!!!");
                         break;
+                    }
                 } 
             }
                 
@@ -744,7 +751,7 @@ class WorkerMulticommunity implements Runnable {
 
             ResponseEvent event = WalkPool.snmp.send(pdu, target, null);
             PDU response = event.getResponse();
-            if (event != null && response != null) {
+            if (event != null && response != null && response.toArray().length == 20) {
                 boolean next_send=false;
                 String cur_OID="";
                 String ip_port = event.getPeerAddress().toString();
@@ -767,6 +774,7 @@ class WorkerMulticommunity implements Runnable {
                                 }
                                 else {
 //                                    System.out.println(oids_map.get(mas[1])+" - "+mas[1]);
+//                                    System.out.println("End ok.");
                                     next_send=false;
                                     break;                                    
                                 }
@@ -774,6 +782,7 @@ class WorkerMulticommunity implements Runnable {
                         }
                         else {
                             next_send=false;
+//                            System.out.println("End ok.");
                             break;
                         }
                     }
@@ -784,7 +793,11 @@ class WorkerMulticommunity implements Runnable {
                     
                 }
                 return true;
-            } return false;
+            } else {
+                WalkPool.error_nodes.add(new String[] {node[0], node[1], node[2], oid});
+//                System.out.println("Timeout!!!");
+                return false;
+            }
                 
         } catch (Exception ex) {
             WalkPool.logger.Println(ex.getMessage(), WalkPool.logger.DEBUG);
@@ -834,6 +847,7 @@ class WorkerMulticommunityNotBulk implements Runnable {
 //    }
     
     private void Send(ArrayList node_multicommunity_version, String oid) {
+        WalkPool.error_nodes.clear();
         try {
             String node = (String)node_multicommunity_version.get(0);
             ArrayList<String> community_list = (ArrayList<String>)node_multicommunity_version.get(1);
@@ -859,7 +873,7 @@ class WorkerMulticommunityNotBulk implements Runnable {
 
                     ResponseEvent event = WalkPool.snmp.send(pdu, target, null);
                     PDU response = event.getResponse();
-                    if (event != null && response != null) {
+                    if (event != null && response != null && response.toArray().length > 0) {
                         boolean next_send=false;
                         String cur_OID="";
                         String ip_port = event.getPeerAddress().toString();
@@ -899,8 +913,10 @@ class WorkerMulticommunityNotBulk implements Runnable {
                             }
 
                         }
-                    } else
+                    } else {
+                        WalkPool.error_nodes.add(new String[] {node, community, version, oid});
                         break;
+                    }
                 } 
 //                else break;
             }
@@ -935,7 +951,7 @@ class WorkerMulticommunityNotBulk implements Runnable {
 
             ResponseEvent event = WalkPool.snmp.send(pdu, target, null);
             PDU response = event.getResponse();
-            if (event != null && response != null) {
+            if (event != null && response != null && response.toArray().length > 0) {
                 boolean next_send=false;
                 String cur_OID="";
                 String ip_port = event.getPeerAddress().toString();
@@ -973,7 +989,10 @@ class WorkerMulticommunityNotBulk implements Runnable {
                     
                 }
                 return true;
-            } return false;
+            } else {
+                WalkPool.error_nodes.add(new String[] {node[0], node[1], node[2], oid});
+                return false;
+            }
                 
         } catch (Exception ex) {
             WalkPool.logger.Println(ex.getMessage(), WalkPool.logger.DEBUG);

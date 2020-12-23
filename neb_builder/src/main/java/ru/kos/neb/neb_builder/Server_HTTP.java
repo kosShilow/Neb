@@ -433,16 +433,16 @@ class FindFullTextInfo implements HttpHandler {
                         try {
                             key = key.replaceAll("\\++", " ");
                             String[] mas = key.split(" ");
-                            for(int i = 0; i < mas.length; i++) {
-                                char[] mas1 = mas[i].toCharArray();
-                                for(char s : mas1) {
-                                    if((int)s > 128) {
-                                        if(!mas[i].substring(mas[i].length()-1).equals("*"))
-                                            mas[i] = mas[i]+"*";
-                                        break;
-                                    }
-                                }                                     
-                            }
+//                            for(int i = 0; i < mas.length; i++) {
+//                                char[] mas1 = mas[i].toCharArray();
+//                                for(char s : mas1) {
+//                                    if((int)s > 128) {
+//                                        if(!mas[i].substring(mas[i].length()-1).equals("*"))
+//                                            mas[i] = mas[i]+"*";
+//                                        break;
+//                                    }
+//                                }                                     
+//                            }
                             String query_str = mas[0];
                             for(int i = 1; i < mas.length; i++) {
                                 query_str = query_str +" AND "+ mas[i];
@@ -466,7 +466,17 @@ class FindFullTextInfo implements HttpHandler {
                             for(int i=0;i<hits.length;++i) {
                                 int docId = hits[i].doc;
                                 Document d = searcher.doc(docId);
-                                String str = d.get("text").replace("\n", " ") + ";" + d.get("area") + ";" + d.get("node") + "\n";
+                                    
+                                String text = d.get("text").replace("\n", " ");
+                                String area = d.get("area");
+                                String node = d.get("node");
+                                String sysname = "";
+                                if(Server_HTTP.INFO.get(area) != null && ((Map)Server_HTTP.INFO.get(area)).get(node) != null &&
+                                      ((Map)((Map)Server_HTTP.INFO.get(area)).get(node)).get("general") != null &&
+                                      ((Map)((Map)((Map)Server_HTTP.INFO.get(area)).get(node)).get("general")).get("sysname") != null )
+                                    sysname = (String)((Map)((Map)((Map)Server_HTTP.INFO.get(area)).get(node)).get("general")).get("sysname");
+                                    
+                                String str = text + ";" + area + ";" + node + ";" + sysname + "\n";
                                 out = out + str;
 //                                System.out.println((i + 1) + ". " + d.get("text") + "\t" + d.get("area") + "\t" + d.get("node"));
                             }        

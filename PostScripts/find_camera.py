@@ -131,6 +131,7 @@ for area in neb_info:
                     if sysname == "Axis Camera" or re.match(".*axis.*", sysname.lower()) or \
                             re.match(".*00:40:8c.*", sysname.lower()) or re.match(".*0040\.8c.*", sysname.lower()) or re.match(".*00408c.*", sysname.lower()) or \
                             re.match(".*b8:a4:4f.*", sysname.lower()) or re.match(".*b8a4\.4f.*",sysname.lower()) or re.match(".*b8a44f.*", sysname.lower()) or \
+                            re.match(".*00:4b:40.*", sysname.lower()) or re.match(".*004b\.40.*",sysname.lower()) or re.match(".*004b40.*", sysname.lower()) or \
                             re.match(".*ac:cc:8e.*", sysname.lower()) or re.match(".*accc\.8e.*", sysname.lower()) or re.match(".*accc8e.*", sysname.lower()):
                         # adding nodes_informations
                         node_descr = "Axis camera"
@@ -139,8 +140,8 @@ for area in neb_info:
                         if result:
                             if result.group(1):
                                 mac = result.group(1)
-                                if re.match("^00:40:8c:.+", mac) or re.match("^ac:cc:8e:.+", mac) or re.match("^b8:a4:4f:.+", mac) or re.match("^0040\.8c.+", mac) or re.match(
-                                        "^accc\.8e.+", mac) or re.match("^b8a4\.4f.+", mac):
+                                if re.match("^00:40:8c:.+", mac) or re.match("^ac:cc:8e:.+", mac) or re.match("^b8:a4:4f:.+", mac) or re.match("^00:4b:40:.+", mac) or \
+                                        re.match("^0040\.8c.+", mac) or re.match("^accc\.8e.+", mac) or re.match("^b8a4\.4f.+", mac) or re.match("^004b\.40.+", mac):
                                     node_descr = "Axis camera"
                                 elif re.match("^18:68:82:.+", mac) or re.match("^1868\.82.+", mac) or re.match("^e0:61:b2:.+", mac) or re.match(
                                         "^e061\.b2.+", mac):
@@ -153,8 +154,8 @@ for area in neb_info:
                         if result:
                             if result.group(1):
                                 mac = result.group(1)
-                                if re.match("^00:40:8c:.+", mac) or re.match("^ac:cc:8e:.+", mac) or re.match("^b8:a4:4f:.+", mac) or re.match("^0040\.8c.+", mac) or re.match(
-                                        "^accc\.8e.+", mac) or re.match("^b8a4\.4f.+", mac):
+                                if re.match("^00:40:8c:.+", mac) or re.match("^ac:cc:8e:.+", mac) or re.match("^b8:a4:4f:.+", mac) or re.match("^00:4b:40:.+", mac) \
+                                        or re.match("^0040\.8c.+", mac) or re.match("^accc\.8e.+", mac) or re.match("^b8a4\.4f.+", mac) or re.match("^004b\.40.+", mac):
                                     node_descr = "Axis camera"
                                 elif re.match("^18:68:82:.+", mac) or re.match("^1868\.82.+", mac) or re.match("^e0:61:b2:.+", mac) or re.match(
                                         "^e061\.b2.+", mac):
@@ -164,8 +165,8 @@ for area in neb_info:
                 base_address = node_info.get("general").get("base_address")
                 if base_address:
                     node_descr = ""
-                    if re.match("^00:40:8c:.+", base_address) or re.match("^ac:cc:8e:.+", base_address) or re.match("^b8:a4:4f:.+", base_address) or re.match("^0040\.8c.+", base_address) or re.match(
-                            "^accc\.8e.+", base_address) or re.match("^b8a4\.4f.+", base_address):
+                    if re.match("^00:40:8c:.+", base_address) or re.match("^ac:cc:8e:.+", base_address) or re.match("^b8:a4:4f:.+", base_address) or re.match("^00:4b:40:.+", base_address) \
+                            or re.match("^0040\.8c.+", base_address) or re.match("^accc\.8e.+", base_address) or re.match("^b8a4\.4f.+", base_address) or re.match("^004b\.40.+", base_address):
                         node_descr = "Axis camera"
                     elif re.match("^18:68:82:.+", base_address) or re.match("^1868\.82.+", base_address) or re.match("^e0:61:b2:.+", base_address) or re.match(
                             "^e061\.b2.+", base_address):
@@ -179,8 +180,8 @@ for area in neb_info:
             node_id = ""
             node_descr = ""
 
-            if re.match("^00:40:8c:.+", mip[0]) or re.match("^ac:cc:8e:.+", mip[0]) or re.match("^b8:a4:4f:.+", mip[0]) or re.match("^0040\.8c.+", mip[0]) or re.match(
-                    "^accc\.8e.+", mip[0]) or re.match("^b8a4\.4f.+", mip[0]):
+            if re.match("^00:40:8c:.+", mip[0]) or re.match("^ac:cc:8e:.+", mip[0]) or re.match("^b8:a4:4f:.+", mip[0]) or re.match("^00:4b:40:.+", mip[0]) \
+                    or re.match("^0040\.8c.+", mip[0]) or re.match("^accc\.8e.+", mip[0]) or re.match("^b8a4\.4f.+", mip[0]) or re.match("^004b\.40.+", mip[0]):
                 if re.match("\d+\.\d+\.\d+\.\d+", mip[1]):
                     node_id = mip[1]
                 else:

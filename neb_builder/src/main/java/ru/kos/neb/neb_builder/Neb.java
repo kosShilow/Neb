@@ -446,8 +446,6 @@ public class Neb {
                             //                            int timeout=Neb.timeout;
                             //                            int retries=Neb.retries;
                             String discovery_networks = ((String) area.getValue().get("discovery_networks")).toLowerCase();
-                            long pause_fast_and_carefully_mac_scanning = ((Long) area.getValue().get("pause_fast_and_carefully_mac_scanning"));
-
                             if (cfg.get("areas") != null && ((Map) cfg.get("areas")).get(area_name) != null) {
                                 Long timeout_options = (Long) ((Map) ((Map) cfg.get("areas")).get(area_name)).get("timeout");
                                 Long retries_options = (Long) ((Map) ((Map) cfg.get("areas")).get(area_name)).get("retries");
@@ -628,6 +626,13 @@ public class Neb {
 //                        Map<String, ArrayList<String[]>> area_arp_mac_table = new HashMap();
                         for (Map.Entry<String, ArrayList<String[]>> area : area_node_community_version.entrySet()) {
                             String area_name = area.getKey();
+
+                            areas = (Map<String, Map>) cfg.get("areas");
+                            if (areas != null && areas.get(area_name) != null && areas.get(area_name).get("pause_fast_and_carefully_mac_scanning") != null)
+                                pause_fast_and_carefully_mac_scanning = (Long) areas.get(area_name).get("pause_fast_and_carefully_mac_scanning");
+                            else
+                                pause_fast_and_carefully_mac_scanning = 0;
+                           
                             logger.Println("Start ARP MAC area " + area_name + " ...", logger.DEBUG);
                             ArrayList<String[]> node_community_version = area.getValue();
                             ArrayList<String[]> arp_mac_table = utils.GetArpMacFromNodes(node_community_version);

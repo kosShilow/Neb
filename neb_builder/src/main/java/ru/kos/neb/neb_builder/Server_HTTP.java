@@ -462,24 +462,53 @@ class FindFullTextInfo implements HttpHandler {
 
                             // 4. display results
 //                            System.out.println("Found " + hits.length + " hits.");
-                            String out = "";
+                            Map<String, String> area_node_attribute = new HashMap();
                             for(int i=0;i<hits.length;++i) {
                                 int docId = hits[i].doc;
                                 Document d = searcher.doc(docId);
                                     
                                 String text = d.get("text").replace("\n", " ");
-                                String area = d.get("area");
-                                String node = d.get("node");
-                                String sysname = "";
-                                if(Server_HTTP.INFO.get(area) != null && ((Map)Server_HTTP.INFO.get(area)).get(node) != null &&
-                                      ((Map)((Map)Server_HTTP.INFO.get(area)).get(node)).get("general") != null &&
-                                      ((Map)((Map)((Map)Server_HTTP.INFO.get(area)).get(node)).get("general")).get("sysname") != null )
-                                    sysname = (String)((Map)((Map)((Map)Server_HTTP.INFO.get(area)).get(node)).get("general")).get("sysname");
+                                boolean find = false;
+                                for(int ii = 0; ii < mas.length; ii++) {
+                                    String pattern = mas[ii].replace("*", ".+").replace("?", ".").toLowerCase();
+                                    Pattern p = Pattern.compile(pattern);
+                                    Matcher m = p.matcher(text.toLowerCase());
+                                    if(m.find()) {
+                                        find = true;
+                                        break;
+                                    }
+                                }
+                                if(find) {
+                                    String area = d.get("area");
+                                    String node = d.get("node");
+                                    String sysname = "";
+                                    if(Server_HTTP.INFO.get(area) != null && ((Map)Server_HTTP.INFO.get(area)).get("nodes_information") != null && 
+                                          ((Map)((Map)Server_HTTP.INFO.get(area)).get("nodes_information")).get(node) != null &&
+                                          ((Map)((Map)((Map)Server_HTTP.INFO.get(area)).get("nodes_information")).get(node)).get("general") != null &&
+                                          ((Map)((Map)((Map)((Map)Server_HTTP.INFO.get(area)).get("nodes_information")).get(node)).get("general")).get("sysname") != null )
+                                        sysname = (String)((Map)((Map)((Map)((Map)Server_HTTP.INFO.get(area)).get("nodes_information")).get(node)).get("general")).get("sysname");
+
+                                    if(area_node_attribute.get(area+"-"+node) == null) {
+                                        String str = text + ";" + area + ";" + node + ";" + sysname + "\n";
+                                        area_node_attribute.put(area+"-"+node, str);
+                                        
+                                    } else {
+                                        text = area_node_attribute.get(area+"-"+node).split(";")[0]+", "+text;
+                                        String str = text + ";" + area + ";" + node + ";" + sysname + "\n";
+                                        area_node_attribute.put(area+"-"+node, str);                                        
+                                    }
                                     
-                                String str = text + ";" + area + ";" + node + ";" + sysname + "\n";
+    //                                System.out.println((i + 1) + ". " + d.get("text") + "\t" + d.get("area") + "\t" + d.get("node"));
+                                } else {
+                                    break;
+                                }
+                            }
+                            
+                            String out = "";
+                            for(Map.Entry<String, String> entry : area_node_attribute.entrySet()) {
+                                String str = entry.getValue();
                                 out = out + str;
-//                                System.out.println((i + 1) + ". " + d.get("text") + "\t" + d.get("area") + "\t" + d.get("node"));
-                            }        
+                            }
                             
                             Server_HTTP.response(he, 200, out);                    
                         } catch(IOException | ParseException ex) {

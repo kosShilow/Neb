@@ -434,6 +434,7 @@ public class Main extends PFrame {
                     jTree1.repaint();
                 }
             } else {
+                Main.neb_server = "localhost";
                 String url = "http://" + Main.neb_server + ":" + Main.neb_server_port + "/find_full_text?key=" + URLEncoder.encode(find_str, "UTF-8");
                 String result = utils.HTTPRequestGET(url);
                 dlm.clear();
@@ -443,7 +444,7 @@ public class Main extends PFrame {
                     String[] lines = result.split("\n");
                     int i = 0;
                     for(String line : lines) {
-                        String[] mas = line.split(";");
+                        String[] mas = line.split(";", -1);
                         if(mas.length == 4) {
                             dlm.addElement(mas[0]+" - "+mas[3]+"("+mas[2]+")");
                             index_area_node.put(i, new String[] { mas[0], mas[1], mas[2] });

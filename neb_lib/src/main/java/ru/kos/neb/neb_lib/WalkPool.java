@@ -710,7 +710,9 @@ class WorkerMulticommunity implements Runnable {
 
                         }
                     } else {
-                        WalkPool.error_nodes.add(new String[] {node, community, version, oid});
+                        synchronized(WalkPool.error_nodes) {
+                            WalkPool.error_nodes.add(new String[] {node, community, version, oid});
+                        }
 //                        System.out.println("Timeout!!!");
                         break;
                     }
@@ -794,7 +796,9 @@ class WorkerMulticommunity implements Runnable {
                 }
                 return true;
             } else {
-                WalkPool.error_nodes.add(new String[] {node[0], node[1], node[2], oid});
+                synchronized(WalkPool.error_nodes) {
+                    WalkPool.error_nodes.add(new String[] {node[0], node[1], node[2], oid});
+                }
 //                System.out.println("Timeout!!!");
                 return false;
             }
@@ -914,7 +918,9 @@ class WorkerMulticommunityNotBulk implements Runnable {
 
                         }
                     } else {
-                        WalkPool.error_nodes.add(new String[] {node, community, version, oid});
+                        synchronized(WalkPool.error_nodes) {
+                            WalkPool.error_nodes.add(new String[] {node, community, version, oid});
+                        }
                         break;
                     }
                 } 
@@ -990,7 +996,9 @@ class WorkerMulticommunityNotBulk implements Runnable {
                 }
                 return true;
             } else {
-                WalkPool.error_nodes.add(new String[] {node[0], node[1], node[2], oid});
+                synchronized(WalkPool.error_nodes) {
+                    WalkPool.error_nodes.add(new String[] {node[0], node[1], node[2], oid});
+                }
                 return false;
             }
                 

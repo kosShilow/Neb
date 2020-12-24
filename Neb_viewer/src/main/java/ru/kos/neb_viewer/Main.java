@@ -434,7 +434,6 @@ public class Main extends PFrame {
                     jTree1.repaint();
                 }
             } else {
-                Main.neb_server = "localhost";
                 String url = "http://" + Main.neb_server + ":" + Main.neb_server_port + "/find_full_text?key=" + URLEncoder.encode(find_str, "UTF-8");
                 String result = utils.HTTPRequestGET(url);
                 dlm.clear();

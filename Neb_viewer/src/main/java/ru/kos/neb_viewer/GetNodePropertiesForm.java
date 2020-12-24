@@ -148,11 +148,11 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
             level0.add(level1d);
         }
 
-        DefaultMutableTreeNode level1e = new DefaultMutableTreeNode("Clients information");
-        level0.add(level1e);
-//        listModel1 = new DefaultListModel();
-//        listModel2 = new DefaultListModel();
-//        listModel3 = new DefaultListModel();
+        if(clients != null && clients.size() > 0) {
+            DefaultMutableTreeNode level1e = new DefaultMutableTreeNode("Clients information");
+            level0.add(level1e);
+        }
+        
         // adding items from external information
         if(Main.INFORMATION.get("nodes_information") != null &&
                 ((Map)(Main.INFORMATION).get("nodes_information")).get(ip) != null &&
@@ -288,7 +288,6 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
         jLabel21 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(220, 220, 190));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane1.setBackground(new java.awt.Color(220, 220, 190));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -310,8 +309,6 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
             }
         });
         jScrollPane1.setViewportView(jTree1);
-
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 190, 390));
 
         jTabbedPane1.setBorder(new javax.swing.border.MatteBorder(null));
         jTabbedPane1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -388,7 +385,7 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
                             .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -449,26 +446,38 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
         jTextField10.setText("jTextField10");
         jTextField10.setAutoscrolls(false);
         jTextField10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTextField10.setMaximumSize(new java.awt.Dimension(64, 18));
+        jTextField10.setMinimumSize(new java.awt.Dimension(64, 18));
 
         jTextField11.setEditable(false);
         jTextField11.setText("jTextField11");
         jTextField11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTextField11.setMaximumSize(new java.awt.Dimension(64, 18));
+        jTextField11.setMinimumSize(new java.awt.Dimension(64, 18));
 
         jTextField12.setEditable(false);
         jTextField12.setText("jTextField12");
         jTextField12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTextField12.setMaximumSize(new java.awt.Dimension(64, 18));
+        jTextField12.setMinimumSize(new java.awt.Dimension(64, 18));
 
         jTextField13.setEditable(false);
         jTextField13.setText("jTextField13");
         jTextField13.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTextField13.setMaximumSize(new java.awt.Dimension(64, 18));
+        jTextField13.setMinimumSize(new java.awt.Dimension(64, 18));
 
         jTextField14.setEditable(false);
         jTextField14.setText("jTextField14");
         jTextField14.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTextField14.setMaximumSize(new java.awt.Dimension(64, 18));
+        jTextField14.setMinimumSize(new java.awt.Dimension(64, 18));
 
         jTextField15.setEditable(false);
         jTextField15.setText("jTextField15");
         jTextField15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTextField15.setMaximumSize(new java.awt.Dimension(64, 18));
+        jTextField15.setMinimumSize(new java.awt.Dimension(64, 18));
 
         jTextArea6.setEditable(false);
         jTextArea6.setColumns(20);
@@ -515,7 +524,7 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel13Layout.createSequentialGroup()
-                .add(24, 24, 24)
+                .addContainerGap()
                 .add(jPanel13Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel17)
                     .add(jLabel16)
@@ -523,18 +532,18 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel13Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel13Layout.createSequentialGroup()
-                        .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(0, 10, Short.MAX_VALUE))
-                    .add(jPanel13Layout.createSequentialGroup()
                         .add(jPanel13Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jTextField18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jTextField21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .add(jTextField18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jTextField21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(jTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                .addContainerGap())
             .add(jPanel13Layout.createSequentialGroup()
                 .add(54, 54, 54)
                 .add(jLabel15)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTextField16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jTextField16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -565,45 +574,47 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .add(jScrollPane15, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .add(30, 30, 30)
-                            .add(jLabel14)
-                            .add(104, 104, 104)
-                            .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(jPanel2Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                .add(jLabel13)
-                                .add(jLabel7)
-                                .add(jLabel20)
-                                .add(jLabel11)
-                                .add(jLabel9))
-                            .add(5, 5, 5)
-                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(jPanel2Layout.createSequentialGroup()
-                                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(jTextField14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(jTextField10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(jTextField12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                        .add(jLabel8)
-                                        .add(jPanel2Layout.createSequentialGroup()
-                                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                                .add(jLabel12)
-                                                .add(jLabel10))
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
-                                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(jTextField13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(jTextField15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(jTextField11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane7)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 225, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                            .add(18, 18, 18)
-                            .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                        .add(jScrollPane15))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
+                                .add(30, 30, 30)
+                                .add(jLabel14)
+                                .add(104, 104, 104)
+                                .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(jLabel13)
+                                    .add(jLabel7)
+                                    .add(jLabel20)
+                                    .add(jLabel11)
+                                    .add(jLabel9))
+                                .add(5, 5, 5)
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                        .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane7)
+                                        .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 225, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(jPanel2Layout.createSequentialGroup()
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jTextField14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jTextField10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jTextField12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                            .add(jLabel8)
+                                            .add(jPanel2Layout.createSequentialGroup()
+                                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                                    .add(jLabel12)
+                                                    .add(jLabel10))
+                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jTextField13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jTextField15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jTextField11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                                .add(12, 12, 12)
+                                .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -669,7 +680,7 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
+            .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -789,7 +800,7 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
                     .add(jPanel6Layout.createSequentialGroup()
                         .add(71, 71, 71)
                         .add(jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jScrollPane10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE))
+                    .add(jScrollPane10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -803,7 +814,24 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
 
         jTabbedPane1.addTab("Clients Information", new javax.swing.ImageIcon(getClass().getResource("/images/client.png")), jPanel6); // NOI18N
 
-        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 660, 390));
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 190, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(10, 10, 10)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 390, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 390, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void SelectItem2(java.awt.event.ActionEvent evt)//GEN-FIRST:event_SelectItem2
@@ -1009,17 +1037,17 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
         jTextField7.setText(" "+interfName+" ");
         if(interfInformation != null && interfInformation.get(interfName) != null) {
 //                jTextArea6.setText(entry.getValue()[6].replaceAll(":","\n "));
-                if(interfInformation.get(interfName).get("mac") != null) jTextField10.setText(" "+interfInformation.get(interfName).get("mac")+" ");
-                if(interfInformation.get(interfName).get("mtu") != null) jTextField11.setText(" "+interfInformation.get(interfName).get("mtu")+" ");
-                if(interfInformation.get(interfName).get("speed") != null) jTextField12.setText(" "+interfInformation.get(interfName).get("speed")+" ");
-                if(interfInformation.get(interfName).get("duplex") != null) jTextField13.setText(" "+interfInformation.get(interfName).get("duplex")+" ");
-                if(interfInformation.get(interfName).get("admin_status") != null) jTextField14.setText(" "+interfInformation.get(interfName).get("admin_status")+" ");
-                if(interfInformation.get(interfName).get("operational_status") != null) jTextField15.setText(" "+interfInformation.get(interfName).get("operational_status")+" ");
-                if(interfInformation.get(interfName).get("mode") != null) jTextField16.setText(" "+interfInformation.get(interfName).get("mode")+" ");
-                if(interfInformation.get(interfName).get("trunk_vlans") != null) jTextField2.setText(" "+interfInformation.get(interfName).get("trunk_vlans")+" ");
-                else if(interfInformation.get(interfName).get("trunk_vlan") != null) jTextField2.setText(" "+interfInformation.get(interfName).get("trunk_vlan")+" ");
-                if(interfInformation.get(interfName).get("native_vlan") != null) jTextField18.setText(" "+interfInformation.get(interfName).get("native_vlan")+" ");
-                if(interfInformation.get(interfName).get("access_vlan") != null) jTextField21.setText(" "+interfInformation.get(interfName).get("access_vlan")+" ");
+                if(interfInformation.get(interfName).get("mac") != null) { jTextField10.setText(" "+interfInformation.get(interfName).get("mac")+" "); jTextField10.setCaretPosition(0); }
+                if(interfInformation.get(interfName).get("mtu") != null) { jTextField11.setText(" "+interfInformation.get(interfName).get("mtu")+" "); jTextField11.setCaretPosition(0); }
+                if(interfInformation.get(interfName).get("speed") != null) { jTextField12.setText(" "+interfInformation.get(interfName).get("speed")+" "); jTextField12.setCaretPosition(0); }
+                if(interfInformation.get(interfName).get("duplex") != null) { jTextField13.setText(" "+interfInformation.get(interfName).get("duplex")+" "); jTextField13.setCaretPosition(0); }
+                if(interfInformation.get(interfName).get("admin_status") != null) { jTextField14.setText(" "+interfInformation.get(interfName).get("admin_status")+" "); jTextField14.setCaretPosition(0); }
+                if(interfInformation.get(interfName).get("operation_status") != null) { jTextField15.setText(" "+interfInformation.get(interfName).get("operation_status")+" "); jTextField15.setCaretPosition(0); }
+                if(interfInformation.get(interfName).get("mode") != null) { jTextField16.setText(" "+interfInformation.get(interfName).get("mode")+" "); jTextField16.setCaretPosition(0); }
+                if(interfInformation.get(interfName).get("trunk_vlans") != null) { jTextField2.setText(" "+interfInformation.get(interfName).get("trunk_vlans")+" "); jTextField2.setCaretPosition(0); }
+                else if(interfInformation.get(interfName).get("trunk_vlan") != null) { jTextField2.setText(" "+interfInformation.get(interfName).get("trunk_vlan")+" "); jTextField2.setCaretPosition(0); }
+                if(interfInformation.get(interfName).get("native_vlan") != null) { jTextField18.setText(" "+interfInformation.get(interfName).get("native_vlan")+" "); jTextField18.setCaretPosition(0); }
+                if(interfInformation.get(interfName).get("access_vlan") != null) { jTextField21.setText(" "+interfInformation.get(interfName).get("access_vlan")+" "); jTextField21.setCaretPosition(0); }
         }
 
     }

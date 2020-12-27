@@ -2169,7 +2169,7 @@ public class Utils {
         int snmp_port = 161;
         // fast mac address scaning. SNMP BULK
         int num_mac_records=0;
-        res = walkPool.GetNodeMultiCommunityVersionOid(node_community_version_oid_list, snmp_port, Neb.timeout_mac, Neb.retries_mac);
+        res = walkPool.GetNodeMultiCommunityVersionOid(node_community_version_oid_list, snmp_port, Neb.timeout_mac, 1);
     
         for (Map.Entry<String, ArrayList> entry : res.entrySet()) {
             String node = entry.getKey();
@@ -2228,48 +2228,12 @@ public class Utils {
         logger.Println("fast mac addres scanning. num_mac_records="+num_mac_records, logger.DEBUG);
 //            System.out.println("retries="+i+" - "+"num_mac_records="+num_mac_records);
 
-        // check nodes not return mac address
+
+//      check nodes not return mac address
         ArrayList<ArrayList> node_community_version_oid_list1 = new ArrayList();
-        for(String[] item : WalkPool.error_nodes) {
-            ArrayList list_tmp = new ArrayList();
-            list_tmp.add(item[0]); 
-            ArrayList<String> list_tmp1 = new ArrayList();
-            list_tmp1.add(item[1]);
-            list_tmp.add(list_tmp1); 
-            list_tmp.add(item[2]);
-            list_tmp.add(item[3]);
-            logger.Println("Error mac fast scanning from node: "+item[0]+", "+item[1]+", "+item[2]+", "+item[3], logger.DEBUG);
-            node_community_version_oid_list1.add(list_tmp);
-        }
+        for(ArrayList item : (ArrayList<ArrayList>)WalkPool.error_nodes)
+            node_community_version_oid_list1.add(item);
         
-        // check nodes not return mac address
-        ArrayList<ArrayList> new_node_community_version_oid_list = new ArrayList();
-        for(ArrayList node_community_version_oid : node_community_version_oid_list) {
-            String node = (String)node_community_version_oid.get(0);
-            if(result.get(node) == null) {
-                ArrayList node_community_version_oid_new = new ArrayList();
-                node_community_version_oid_new.add(node_community_version_oid.get(0));
-                node_community_version_oid_new.add(node_community_version_oid.get(1)); 
-                node_community_version_oid_new.add(node_community_version_oid.get(2)); 
-                node_community_version_oid_new.add(node_community_version_oid.get(3));
-                new_node_community_version_oid_list.add(node_community_version_oid_new);                    
-
-                logger.Println("From nodes - "+node+" not receive mac address list from fast scanning!!!", logger.DEBUG);
-            }
-        }
-
-        for(ArrayList node_community_version_oid : new_node_community_version_oid_list) {
-            boolean found = false;
-            for(ArrayList node_community_version_oid1 : node_community_version_oid_list1) {
-                if(node_community_version_oid.get(0).equals(node_community_version_oid1.get(0))) {
-                    found = true;
-                    break;
-                }
-            }
-            if(!found)
-                node_community_version_oid_list1.add(node_community_version_oid);
-        }        
-       
         for(ArrayList node_community_version_oid : node_community_version_oid_list1) {
             logger.Println("Adding node for carefully scaning - "+node_community_version_oid.get(0), logger.DEBUG);
         }
@@ -2279,7 +2243,7 @@ public class Utils {
             if(node_community_version_oid_list1.size() > 0) {
                 Waiting(Neb.pause_fast_and_carefully_mac_scanning);
                 num_mac_records=0;
-                res = walkPool.GetNodeMultiCommunityVersionOidNotBulk(node_community_version_oid_list1, snmp_port, Neb.timeout_mac, Neb.retries_mac);
+                res = walkPool.GetNodeMultiCommunityVersionOidNotBulk(node_community_version_oid_list1, snmp_port, Neb.timeout_mac, 1);
                 for (Map.Entry<String, ArrayList> entry : res.entrySet()) {
                     String node = entry.getKey();
                     ArrayList<String[]> val_list = entry.getValue();
@@ -2337,53 +2301,18 @@ public class Utils {
                 logger.Println("retries="+i+" - "+"num_mac_records="+num_mac_records, logger.DEBUG);
 //            System.out.println("retries="+i+" - "+"num_mac_records="+num_mac_records);
 
+//              check nodes not return mac address
+                if(WalkPool.error_nodes.size() > 0) {
+                    node_community_version_oid_list1 = new ArrayList();
+                    for(ArrayList item : (ArrayList<ArrayList>)WalkPool.error_nodes)
+                        node_community_version_oid_list1.add(item);
 
-                // check nodes not return mac address
-                new_node_community_version_oid_list = new ArrayList();
-                for(ArrayList node_community_version_oid : node_community_version_oid_list1) {
-                    String node = (String)node_community_version_oid.get(0);
-                    if(result.get(node) == null) {
-                        ArrayList node_community_version_oid_new = new ArrayList();
-                        node_community_version_oid_new.add(node_community_version_oid.get(0));
-                        node_community_version_oid_new.add(node_community_version_oid.get(1)); 
-                        node_community_version_oid_new.add(node_community_version_oid.get(2)); 
-                        node_community_version_oid_new.add(node_community_version_oid.get(3));
-                        new_node_community_version_oid_list.add(node_community_version_oid_new);                    
-
-                        logger.Println("From nodes - "+node+" not receive mac address list from carefully scanning!!!", logger.DEBUG);
+                    for(ArrayList node_community_version_oid : node_community_version_oid_list1) {
+                        logger.Println("Adding node for carefully scaning - "+node_community_version_oid.get(0)+" : retries="+i, logger.DEBUG);
                     }
+                } else {
+                    break;
                 }
-//                node_community_version_oid_list1 = new_node_community_version_oid_list;
-
-                // check nodes not return mac address
-                node_community_version_oid_list1 = new ArrayList();
-                for(String[] item : WalkPool.error_nodes) {
-                    ArrayList list_tmp = new ArrayList();
-                    list_tmp.add(item[0]); 
-                    ArrayList<String> list_tmp1 = new ArrayList();
-                    list_tmp1.add(item[1]);
-                    list_tmp.add(list_tmp1);                      
-                    list_tmp.add(item[2]);
-                    list_tmp.add(item[3]);
-                    logger.Println("Error mac carefully scanning from node: "+item[0]+", "+item[1]+", "+item[2]+", "+item[3], logger.DEBUG);
-                    node_community_version_oid_list1.add(list_tmp);
-                } 
-                
-                for(ArrayList node_community_version_oid : new_node_community_version_oid_list) {
-                    boolean found = false;
-                    for(ArrayList node_community_version_oid1 : node_community_version_oid_list1) {
-                        if(node_community_version_oid.get(0).equals(node_community_version_oid1.get(0))) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if(!found)
-                        node_community_version_oid_list1.add(node_community_version_oid);
-                }
-                
-                for(ArrayList node_community_version_oid : node_community_version_oid_list1) {
-                    logger.Println("Adding node for carefully scaning - "+node_community_version_oid.get(0), logger.DEBUG);
-                }                
                 
             }
         }

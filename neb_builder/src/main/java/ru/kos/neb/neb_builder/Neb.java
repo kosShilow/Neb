@@ -73,7 +73,7 @@ public class Neb {
     public static long timeout_process = 30 * 60 * 1000; // 10 min
     public static long timeout_output = 10 * 60 * 1000;
 //    public static int retries_process = 3; // retries for scripts    
-    public static int timeout_mac = 60; // mac timeout 3 sec.
+    public static int timeout_mac = 30; // mac timeout 3 sec.
     public static int retries_mac = 3; // mac timeout 1 sec. 
     public static int MAX_RUNSCRIPT_CLI_TEST = 64;
     public static int MAX_RUNSCRIPT_CLI = 16;

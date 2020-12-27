@@ -65,13 +65,30 @@ public class WalkPoolNGTest {
         String oid = "1.3.6.1.2.1.17.1.4.1.2";
         Map<String, ArrayList> result = instance.Get(list_ip, oid, 161, 5, 3);
         assertTrue(result.size() == 2);           
-        
+
         oid = "1.3.6.1.2.1.17.4.3.1.2";
         ArrayList<ArrayList> node_multicommunity_version_oid_list = new ArrayList();
         ArrayList node_multicommunity_version_oid = new ArrayList();
+//        node_multicommunity_version_oid.add("10.96.115.254");
+        node_multicommunity_version_oid.add("10.96.250.113");
+        ArrayList multicommunity_list = new ArrayList(); 
+        multicommunity_list.add("20fyufhf80");
+//        multicommunity_list.add("20fyufhf80@1");
+//        multicommunity_list.add("20fyufhf80@10");
+        node_multicommunity_version_oid.add(multicommunity_list);
+        node_multicommunity_version_oid.add("2");
+        node_multicommunity_version_oid.add(oid);
+        node_multicommunity_version_oid_list.add(node_multicommunity_version_oid);
+        result = instance.GetNodeMultiCommunityVersionOidNotBulk(node_multicommunity_version_oid_list, 161, 10, 3);
+        assertTrue(result.size() == 1);  
+        
+        oid = "1.3.6.1.2.1.17.4.3.1.2";
+        node_multicommunity_version_oid_list = new ArrayList();
+        node_multicommunity_version_oid_list = new ArrayList();
+        node_multicommunity_version_oid = new ArrayList();
         node_multicommunity_version_oid.add("10.96.115.254");
 //        node_multicommunity_version_oid.add("10.96.250.113");
-        ArrayList multicommunity_list = new ArrayList(); 
+        multicommunity_list = new ArrayList(); 
         multicommunity_list.add("20fyufhf80");
 //        multicommunity_list.add("20fyufhf80@1");
 //        multicommunity_list.add("20fyufhf80@10");

@@ -2238,10 +2238,11 @@ public class Utils {
             logger.Println("Adding node for carefully scaning - "+node_community_version_oid.get(0), logger.DEBUG);
         }
 
+        Waiting(Neb.pause_fast_and_carefully_mac_scanning);
+        
         // carefully mac address scanning
         for(int i=0; i<Neb.retries_mac; i++) {
             if(node_community_version_oid_list1.size() > 0) {
-                Waiting(Neb.pause_fast_and_carefully_mac_scanning);
                 num_mac_records=0;
                 res = walkPool.GetNodeMultiCommunityVersionOidNotBulk(node_community_version_oid_list1, snmp_port, Neb.timeout_mac, 1);
                 for (Map.Entry<String, ArrayList> entry : res.entrySet()) {
@@ -2313,7 +2314,7 @@ public class Utils {
                 } else {
                     break;
                 }
-                
+                Waiting(60);
             }
         }
         /////////////////////////////////////////////////

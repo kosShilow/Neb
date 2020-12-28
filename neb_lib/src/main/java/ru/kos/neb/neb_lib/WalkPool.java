@@ -713,23 +713,27 @@ class WorkerMulticommunity implements Runnable {
 //                                    System.err.println(mas[0]+" : "+", "+community+", "+version+", "+mas[1]+", "+mas[2]);
                                     WalkPool.logger.Println(mas[0]+" : "+", "+community+", "+version+", "+mas[1]+", "+mas[2], WalkPool.logger.DEBUG);
 //                                    synchronized(WalkPool.res) { WalkPool.res.add(mas); }
-                                    synchronized(WalkPool.res) { 
-                                        if(oids_map.get(mas[1]) == null) {
-                                            oids_map.put(mas[1], mas[1]);
-                                            WalkPool.res.add(mas);
-                                            next_send=true;                                            
-                                        }
-                                        else {
-                                            next_send=false;
+                                    if(oids_map.get(mas[1]) == null) {
+                                        oids_map.put(mas[1], mas[1]);
+                                        synchronized(WalkPool.res) { WalkPool.res.add(mas); }
+                                        next_send=true;                                            
+                                    }
+                                    else {
+                                        next_send=false;
+                                        synchronized(WalkPool.scan_status) {
                                             WalkPool.scan_status.put(node, "OK.");
-//                                            System.out.println("End ok.");
-                                            break;                                    
                                         }
-                                    }                                    
+                                        WalkPool.logger.Println(node + " OK.", WalkPool.logger.DEBUG);
+//                                            System.out.println("End ok.");
+                                        break;                                    
+                                    }                                
                                 }
                                 else {
                                     next_send=false;
-                                    WalkPool.scan_status.put(node, "OK.");
+                                    synchronized(WalkPool.scan_status) {
+                                        WalkPool.scan_status.put(node, "OK.");
+                                    }
+                                    WalkPool.logger.Println(node + " OK.", WalkPool.logger.DEBUG);
 //                                    System.out.println("End ok.");
                                     break;
                                 }
@@ -745,7 +749,7 @@ class WorkerMulticommunity implements Runnable {
 
                         }
                     } else {
-//                        System.out.println("Timeout!!!");
+                        WalkPool.logger.Println(node + " Timeout!!!", WalkPool.logger.DEBUG);
                         break;
                     }
                 } 
@@ -800,24 +804,28 @@ class WorkerMulticommunity implements Runnable {
 //                            if(mas[2].equals("5")) System.err.println(mas[0]+" : "+", "+node[1]+", "+node[2]+", "+mas[1]+", "+mas[2]);
 //                            System.err.println(mas[0]+" : "+", "+node[1]+", "+node[2]+", "+mas[1]+", "+mas[2]);
                             WalkPool.logger.Println(mas[0]+" : "+", "+node[1]+", "+node[2]+", "+mas[1]+", "+mas[2], WalkPool.logger.DEBUG);
-                            synchronized(WalkPool.res) { 
-                                if(oids_map.get(mas[1]) == null) {
-                                    oids_map.put(mas[1], mas[1]);
-                                    WalkPool.res.add(mas);
-                                    next_send=true;                                            
-                                }
-                                else {
+                            if(oids_map.get(mas[1]) == null) {
+                                oids_map.put(mas[1], mas[1]);
+                                synchronized(WalkPool.res) { WalkPool.res.add(mas); }
+                                next_send=true;                                            
+                            }
+                            else {
 //                                    System.out.println(oids_map.get(mas[1])+" - "+mas[1]);
 //                                    System.out.println("End ok.");
+                                synchronized(WalkPool.scan_status) {
                                     WalkPool.scan_status.put(node[0], "OK.");
-                                    next_send=false;
-                                    break;                                    
                                 }
+                                WalkPool.logger.Println(node[0] + " OK.", WalkPool.logger.DEBUG);
+                                next_send=false;
+                                break;                                    
                             }
                         }
                         else {
                             next_send=false;
-                            WalkPool.scan_status.put(node[0], "OK.");
+                            synchronized(WalkPool.scan_status) {
+                                WalkPool.scan_status.put(node[0], "OK.");
+                            }
+                            WalkPool.logger.Println(node[0] + " OK.", WalkPool.logger.DEBUG);
 //                            System.out.println("End ok.");
                             break;
                         }
@@ -830,7 +838,7 @@ class WorkerMulticommunity implements Runnable {
                 }
                 return true;
             } else {
-//                System.out.println("Timeout!!!");
+                WalkPool.logger.Println(node[0] + " Timeout!!!", WalkPool.logger.DEBUG);
                 return false;
             }
                 
@@ -922,22 +930,26 @@ class WorkerMulticommunityNotBulk implements Runnable {
                                     mas[2]=var.getVariable().toString();
 //                                    if(Utils.DEBUG) System.err.println(mas[0]+" : "+", "+community+", "+version+", "+mas[1]+", "+mas[2]);
                                     WalkPool.logger.Println(mas[0]+" : "+", "+community+", "+version+", "+mas[1]+", "+mas[2], WalkPool.logger.DEBUG);
-                                    synchronized(WalkPool.res) { 
-                                        if(oids_map.get(mas[1]) == null) {
-                                            oids_map.put(mas[1], mas[1]);
-                                            WalkPool.res.add(mas);
-                                            next_send=true;                                            
-                                        }
-                                        else {
-                                            next_send=false;
+                                    if(oids_map.get(mas[1]) == null) {
+                                        oids_map.put(mas[1], mas[1]);
+                                        synchronized(WalkPool.res) { WalkPool.res.add(mas); }
+                                        next_send=true;                                            
+                                    }
+                                    else {
+                                        next_send=false;
+                                        synchronized(WalkPool.scan_status) {
                                             WalkPool.scan_status.put(node, "OK.");
-                                            break;                                    
                                         }
-                                    }    
+                                        WalkPool.logger.Println(node + " OK.", WalkPool.logger.DEBUG);
+                                        break;                                    
+                                    }
                                 }
                                 else {
                                     next_send=false;
-                                    WalkPool.scan_status.put(node, "OK.");
+                                    synchronized(WalkPool.scan_status) {
+                                        WalkPool.scan_status.put(node, "OK.");
+                                    }
+                                    WalkPool.logger.Println(node + " OK.", WalkPool.logger.DEBUG);
                                     break;
                                 }
                             }
@@ -951,6 +963,7 @@ class WorkerMulticommunityNotBulk implements Runnable {
 
                         }
                     } else {
+                        WalkPool.logger.Println(node + " Timeout!!!", WalkPool.logger.DEBUG);
                         break;
                     }
                 } 
@@ -1001,22 +1014,26 @@ class WorkerMulticommunityNotBulk implements Runnable {
                             mas[2]=var.getVariable().toString();
 //                            if(Utils.DEBUG) System.err.println(mas[0]+" : "+", "+node[1]+", "+node[2]+", "+mas[1]+", "+mas[2]);
                             WalkPool.logger.Println(mas[0]+" : "+", "+node[1]+", "+node[2]+", "+mas[1]+", "+mas[2], WalkPool.logger.DEBUG);
-                            synchronized(WalkPool.res) { 
-                                if(oids_map.get(mas[1]) == null) {
-                                    oids_map.put(mas[1], mas[1]);
-                                    WalkPool.res.add(mas);
-                                    next_send=true;                                            
-                                }
-                                else {
-                                    next_send=false;
+                            if(oids_map.get(mas[1]) == null) {
+                                oids_map.put(mas[1], mas[1]);
+                                synchronized(WalkPool.res) { WalkPool.res.add(mas); }
+                                next_send=true;                                            
+                            }
+                            else {
+                                next_send=false;
+                                synchronized(WalkPool.scan_status) {
                                     WalkPool.scan_status.put(node[0], "OK.");
-                                    break;                                    
                                 }
+                                WalkPool.logger.Println(node[0] + " OK.", WalkPool.logger.DEBUG);
+                                break;                                    
                             }
                         }
                         else {
                             next_send=false;
-                            WalkPool.scan_status.put(node[0], "OK.");
+                            synchronized(WalkPool.scan_status) {
+                                WalkPool.scan_status.put(node[0], "OK.");
+                            }
+                            WalkPool.logger.Println(node[0] + " OK.", WalkPool.logger.DEBUG);
                             break;
                         }
                     }
@@ -1028,6 +1045,7 @@ class WorkerMulticommunityNotBulk implements Runnable {
                 }
                 return true;
             } else {
+                WalkPool.logger.Println(node[0] + " Timeout!!!", WalkPool.logger.DEBUG);
                 return false;
             }
                 

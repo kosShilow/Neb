@@ -800,8 +800,8 @@ public class Cisco_information {
         ArrayList<String> lldp_interfaces = new ArrayList();
         for(int i=pos+1; i<mas.length; i++) {
             if(mas[i].equals("")) break;
-            lldp_interfaces.add(mas[i].substring(20).split(" ")[0]);
-//            System.out.println(mas[i].substring(20).split(" ")[0]);
+            lldp_interfaces.add(mas[i].substring(20).trim().split(" ")[0]);
+            System.out.println(mas[i].substring(20).trim().split(" ")[0]);
         }
         
         String out_lldp_det=terminal.RunCommand((Expect)conn.get(1), "sh lldp neighbors detail", stop_symbols);

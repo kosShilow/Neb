@@ -69,10 +69,12 @@ public class WalkPoolNGTest {
         oid = "1.3.6.1.2.1.17.4.3.1.2";
         ArrayList<ArrayList> node_multicommunity_version_oid_list = new ArrayList();
         ArrayList node_multicommunity_version_oid = new ArrayList();
-//        node_multicommunity_version_oid.add("10.96.115.254");
-        node_multicommunity_version_oid.add("10.96.250.113");
+        node_multicommunity_version_oid.add("10.96.115.254");
+//        node_multicommunity_version_oid.add("10.32.71.233");
+//        node_multicommunity_version_oid.add("10.96.250.113");
         ArrayList multicommunity_list = new ArrayList(); 
         multicommunity_list.add("20fyufhf80");
+//        multicommunity_list.add("public");
 //        multicommunity_list.add("20fyufhf80@1");
 //        multicommunity_list.add("20fyufhf80@10");
         node_multicommunity_version_oid.add(multicommunity_list);
@@ -87,16 +89,17 @@ public class WalkPoolNGTest {
         node_multicommunity_version_oid_list = new ArrayList();
         node_multicommunity_version_oid = new ArrayList();
         node_multicommunity_version_oid.add("10.96.115.254");
-//        node_multicommunity_version_oid.add("10.96.250.113");
+//        node_multicommunity_version_oid.add("10.32.71.233");
         multicommunity_list = new ArrayList(); 
         multicommunity_list.add("20fyufhf80");
+//        multicommunity_list.add("KaroR");
 //        multicommunity_list.add("20fyufhf80@1");
 //        multicommunity_list.add("20fyufhf80@10");
         node_multicommunity_version_oid.add(multicommunity_list);
         node_multicommunity_version_oid.add("2");
         node_multicommunity_version_oid.add(oid);
         node_multicommunity_version_oid_list.add(node_multicommunity_version_oid);
-        result = instance.GetNodeMultiCommunityVersionOid(node_multicommunity_version_oid_list, 161, 10, 3);
+        result = instance.GetNodeMultiCommunityVersionOid(node_multicommunity_version_oid_list, 161, 30, 3);
         assertTrue(result.size() == 1);  
     
         oid = "1.3.6.1.2.1.17.4.3.1.2";

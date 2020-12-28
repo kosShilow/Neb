@@ -73,7 +73,7 @@ public class Neb {
     public static long timeout_process = 30 * 60 * 1000; // 10 min
     public static long timeout_output = 10 * 60 * 1000;
 //    public static int retries_process = 3; // retries for scripts    
-    public static int timeout_mac = 30; // mac timeout 3 sec.
+    public static int timeout_mac = 60; // mac timeout 3 sec.
     public static int retries_mac = 3; // mac timeout 1 sec. 
     public static int MAX_RUNSCRIPT_CLI_TEST = 64;
     public static int MAX_RUNSCRIPT_CLI = 16;
@@ -310,6 +310,7 @@ public class Neb {
                 history_dir = history_map;
                 history_num_days = ((Long) cfg.get("history_num_days")).intValue();
                 log_num_days = ((Long) cfg.get("log_num_days")).intValue();
+                pause_fast_and_carefully_mac_scanning = ((Long) cfg.get("pause_fast_and_carefully_mac_scanning")).intValue();
                 run_post_scripts = (String) cfg.get("postscript");
                 //                passwd_file = (String)cfg.get("passwd_file");
                 //                passwd_hash_list = utils.ReadFileToList(passwd_file);
@@ -626,13 +627,6 @@ public class Neb {
 //                        Map<String, ArrayList<String[]>> area_arp_mac_table = new HashMap();
                         for (Map.Entry<String, ArrayList<String[]>> area : area_node_community_version.entrySet()) {
                             String area_name = area.getKey();
-
-                            areas = (Map<String, Map>) cfg.get("areas");
-                            if (areas != null && areas.get(area_name) != null && areas.get(area_name).get("pause_fast_and_carefully_mac_scanning") != null)
-                                pause_fast_and_carefully_mac_scanning = (Long) areas.get(area_name).get("pause_fast_and_carefully_mac_scanning");
-                            else
-                                pause_fast_and_carefully_mac_scanning = 0;
-                           
                             logger.Println("Start ARP MAC area " + area_name + " ...", logger.DEBUG);
                             ArrayList<String[]> node_community_version = area.getValue();
                             ArrayList<String[]> arp_mac_table = utils.GetArpMacFromNodes(node_community_version);

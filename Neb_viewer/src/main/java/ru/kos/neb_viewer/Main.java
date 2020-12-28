@@ -306,19 +306,21 @@ public class Main extends PFrame {
         full_text_search_result.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                int lastIndex = e.getLastIndex();
-                if(index_area_node.get(lastIndex) != null && index_area_node.get(lastIndex).length == 3) {
-                    String item = index_area_node.get(lastIndex)[0];
-                    String area = index_area_node.get(lastIndex)[1];
-                    String node = index_area_node.get(lastIndex)[2];
-    //                System.out.println(lastIndex+" - "+item+" "+area+" "+node);
-                    Thread t = new Thread(new Runnable() {
-                        public void run() {
-                            new Utils().LoadAndPositionMap(area, node);
-                        }
-                    });
-                    t.start(); 
-    //                new Utils().LoadAndPositionMap(area, node);
+                if (!e.getValueIsAdjusting()) {
+                    int lastIndex = ((JList) e.getSource()).getSelectedIndex();
+                    if(index_area_node.get(lastIndex) != null && index_area_node.get(lastIndex).length == 3) {
+                        String item = index_area_node.get(lastIndex)[0];
+                        String area = index_area_node.get(lastIndex)[1];
+                        String node = index_area_node.get(lastIndex)[2];
+                        System.out.println(lastIndex+" - "+item+" "+area+" "+node);
+                        Thread t = new Thread(new Runnable() {
+                            public void run() {
+                                new Utils().LoadAndPositionMap(area, node);
+                            }
+                        });
+                        t.start(); 
+        //                new Utils().LoadAndPositionMap(area, node);
+                    }
                 }
 
             }

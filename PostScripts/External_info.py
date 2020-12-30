@@ -254,43 +254,43 @@ if result.get('objects'):
         ip = ''
         if result.get('objects').get(item).get('fields').get('managementip_id_friendlyname'):
             ip = result.get('objects').get(item).get('fields').get('managementip_id_friendlyname')
-            info['ip'] = ip.strip().replace("\n", "")
+            info['ip'] = ip.strip().replace("\n", " ")
         sysname = ''
         if result.get('objects').get(item).get('fields').get('name'):
             sysname = result.get('objects').get(item).get('fields').get('name')
-            info['sysname'] = sysname.strip().replace("\n", "")
+            info['sysname'] = sysname.strip().replace("\n", " ")
         date = ''
         if result.get('objects').get(item).get('fields').get('move2production'):
             date = result.get('objects').get(item).get('fields').get('move2production')
-            info['date'] = date.strip().replace("\n", "")
+            info['date'] = date.strip().replace("\n", " ")
         project = ''
         if result.get('objects').get(item).get('fields').get('project'):
             project = result.get('objects').get(item).get('fields').get('project')
-            info['project'] = project.strip().replace("\n", "")
+            info['project'] = project.strip().replace("\n", " ")
         serial = ''
         if result.get('objects').get(item).get('fields').get('serialnumber'):
             serial = result.get('objects').get(item).get('fields').get('serialnumber')
-            info['serial'] = serial.strip().replace("\n", "")
+            info['serial'] = serial.strip().replace("\n", " ")
         brand = ''
         if result.get('objects').get(item).get('fields').get('brand_name'):
             brand = result.get('objects').get(item).get('fields').get('brand_name')
-            info['brand'] = brand.strip().replace("\n", "")
+            info['brand'] = brand.strip().replace("\n", " ")
         model = ''
         if result.get('objects').get(item).get('fields').get('model_name'):
             model = result.get('objects').get(item).get('fields').get('model_name')
-            info['model'] = model.strip().replace("\n", "")
+            info['model'] = model.strip().replace("\n", " ")
         mac = ''
         if result.get('objects').get(item).get('fields').get('macaddress'):
             mac = result.get('objects').get(item).get('fields').get('macaddress')
-            info['mac'] = mac.strip().replace("\n", "")
+            info['mac'] = mac.strip().replace("\n", " ")
         camera_vsm_part = ''
         if result.get('objects').get(item).get('fields').get('cameravsmpart'):
             camera_vsm_part = result.get('objects').get(item).get('fields').get('cameravsmpart')
-            info['camera_vsm_part'] = camera_vsm_part.strip().replace("\n", "")
+            info['camera_vsm_part'] = camera_vsm_part.strip().replace("\n", " ")
         description = ''
         if result.get('objects').get(item).get('fields').get('usercomment'):
             description = result.get('objects').get(item).get('fields').get('usercomment')
-            info['description'] = description.strip().replace("\n", "")
+            info['description'] = description.strip().replace("\n", " ")
 
         if ip:
             ip_info[ip] = info
@@ -299,7 +299,59 @@ if result.get('objects'):
         if sysname:
             sysname_info[sysname.lower()] = info
         # print(ip + "- \t" + sysname + "\t" + description + "\t" + date + "\t" + "\t" + model + "\t" + serial)
+####################################################################################
 
+urllib3.disable_warnings()
+json_data = {
+    "operation": "core/get",
+    "class": "NetworkDevice",
+    "key": "SELECT NetworkDevice",
+    # "key": "SELECT NetworkDevice WHERE name = 'cs2950-24_volg_abk_kc-2_l1_sortirovka_n1'",
+    "output_fields": "name, macaddress, managementip_name, description, mod_date, asset_number"
+    # "output_fields": "*"
+}
+
+result = itop_request(json_data)
+
+if result.get('objects'):
+    for item in result.get('objects'):
+        info = {}
+
+        sysname = ''
+        if result.get('objects').get(item).get('fields').get('name'):
+            sysname = result.get('objects').get(item).get('fields').get('name')
+            info['sysname'] = sysname.strip().replace("\n", " ")
+        mac = ''
+        if result.get('objects').get(item).get('fields').get('macaddress'):
+            mac = result.get('objects').get(item).get('fields').get('macaddress')
+            info['mac'] = mac.strip().replace("\n", " ")
+        ip = ''
+        if result.get('objects').get(item).get('fields').get('managementip_name'):
+            ip = result.get('objects').get(item).get('fields').get('managementip_name')
+            info['ip'] = ip.strip().replace("\n", " ")
+        date = ''
+        if result.get('objects').get(item).get('fields').get('mod_date'):
+            date = result.get('objects').get(item).get('fields').get('mod_date')
+            info['date'] = date.strip().replace("\n", " ")
+        description = ''
+        if result.get('objects').get(item).get('fields').get('description'):
+            description = result.get('objects').get(item).get('fields').get('description')
+            info['description'] = description.strip().replace("\n", " ")
+        sw = ''
+        if result.get('objects').get(item).get('fields').get('asset_number'):
+            sw = result.get('objects').get(item).get('fields').get('asset_number')
+            info['sw'] = sw.strip().replace("\n", " ")
+
+        if ip:
+            ip_info[ip] = info
+        if mac:
+            mac_info[mac.replace(':', '').replace('.', '').lower()] = info
+        if sysname:
+            sysname_info[sysname.lower()] = info
+        # if description:
+            # print(ip + "- \t" + sysname + "\t" + description + "\t" + date + "\t" + "\t" + mac + "\t" + ip)
+
+####################################################################################
 for area in neb_info:
     if neb_info.get(area) and neb_info.get(area).get("nodes_information"):
         for node in neb_info.get(area).get("nodes_information"):

@@ -7439,6 +7439,10 @@ public class Utils {
                     if(model.equals("0")) model = null;
                     if(model != null) map1.put("model", model);
                 }
+                String platform = (String)info_map.get("remote_platform");
+                if(platform != null && !platform.equals("")) {
+                    map1.put("platform", platform);
+                }                
                 if(!mac.equals("")) map1.put("base_address", mac);
                 Map<String, Map> map2 = new HashMap();
                 map2.put("general", map1);

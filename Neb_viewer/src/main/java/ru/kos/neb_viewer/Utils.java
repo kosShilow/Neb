@@ -212,7 +212,7 @@ public class Utils {
                         }
                         long size_local = img_file.length();
                         if (size_server != size_local) {
-                            CopyHTTPFile(url, img_file.getPath());
+                            CopyHTTPFile(url2, img_file.getPath());
                         }
                     }
                 }

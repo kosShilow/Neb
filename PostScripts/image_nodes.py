@@ -394,6 +394,8 @@ mas = ['.*NanoStation\s+M5.*', 'images/Ubnt/AP.png']
 replaces.append(mas)
 mas = ['.*PowerBeam\s+M2.*', 'images/Ubnt/AP.png']
 replaces.append(mas)
+mas = ['MikroTik', 'images/Microtic/AP.png']
+replaces.append(mas)
 mas = ['.*ZyXEL.*', 'images/Zyxel/zyxel.png']
 replaces.append(mas)
 mas = ['.*Zyx-IES612.*', 'images/Zyxel/zyxel.png']
@@ -553,23 +555,31 @@ if neb_info:
                         # print(url_set_image)
                 if not image:
                     if general:
-                        sysdescription = general.get("sysDescription")
-                        if not sysdescription:
-                            sysdescription = general.get("model")
+                        ident_node_list = []
+                        ident = general.get("platform")
+                        if ident:
+                            ident_node_list.append(ident.lower())
+                        ident = general.get("sysDescription")
+                        if ident:
+                            ident_node_list.append(ident.lower())
+                        ident = general.get("model")
+                        if ident:
+                            ident_node_list.append(ident.lower())
 
                         image = None
-                        if sysdescription:
-                            sysdescription = sysdescription.lower()
+                        for ident in ident_node_list:
                             for m in replaces:
                                 p = re.compile(m[0].lower())
-                                if p.match(sysdescription):
+                                if p.match(ident):
                                     image = m[1]
                                     break
-                            if image and image != image_old:
-                                url_set_image = "http://" + neb_server + ":" + neb_server_port + "/set?file=neb.map.pre&key=/" + area + "/nodes_information/" + node + "/image"
-                                data = image
-                                result = requests.post(url_set_image, data, headers={"user": user, "passwd": passwd}, verify=False)
-                                # print(url_set_image)
+                            if image:
+                                if image != image_old:
+                                    url_set_image = "http://" + neb_server + ":" + neb_server_port + "/set?file=neb.map.pre&key=/" + area + "/nodes_information/" + node + "/image"
+                                    data = image
+                                    result = requests.post(url_set_image, data, headers={"user": user, "passwd": passwd}, verify=False)
+                                    # print(url_set_image+" image="+ data)
+                                break
                         if not image:
                             sysname = general.get("sysname")
                             if sysname:
@@ -584,7 +594,7 @@ if neb_info:
                                     url_set_image = "http://" + neb_server + ":" + neb_server_port + "/set?file=neb.map.pre&key=/" + area + "/nodes_information/" + node + "/image"
                                     data = image
                                     result = requests.post(url_set_image, data, headers={"user": user, "passwd": passwd}, verify=False)
-                                    # print(url_set_image)
+                                    # print(url_set_image+" image="+ data)
 
     commit_url = "http://" + neb_server + ":" + neb_server_port + "/commit"
     res = requests.get(commit_url, headers={"user": user, "passwd": passwd}, verify=False)

@@ -88,7 +88,335 @@ print("Starting get Neb node info ...")
 neb_info = get_neb_info()
 print("Stop get Neb node info.")
 
+##################################################################################
+print('Get info from \\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\Костомукша\\KARO Active.xlsx')
+wb = openpyxl.load_workbook('\\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\Костомукша\\KARO Active.xlsx')
+sheet = wb['devices']
+rows = sheet.max_row
+# cols = sheet.max_column
 
+for i in range(1, rows):
+    info = {}
+    val = sheet['D'+str(i)].value
+    if val:
+        val = val.strip()
+        if re.match(r'^\d+\.\d+\.\d+\.\d+$', val):
+            ip = val
+            info['ip'] = ip
+            sysname = sheet['C' + str(i)].value
+            if sysname:
+                sysname = str(sysname).strip().replace("\n", "")
+                info['sysname'] = sysname
+            else:
+                sysname = ''
+            description = sheet['E' + str(i)].value
+            if description:
+                description = str(description).strip().replace("\n", "")
+                info['description'] = description
+            else:
+                description = ''
+            sw = sheet['A' + str(i)].value
+            if sw:
+                sw = str(sw).strip().replace("\n", "")
+                info['sw'] = sw
+            else:
+                sw = ''
+            # date = sheet['P' + str(i)].value
+            # if date:
+            #     date = str(date)
+            #     info['date'] = date
+            # else:
+            #     date = ''
+            model = sheet['F' + str(i)].value
+            if model:
+                model = str(model).strip().replace("\n", "")
+                info['model'] = model
+            else:
+                model = ''
+            serial = sheet['H' + str(i)].value
+            if serial:
+                serial = str(serial).strip().replace("\n", "")
+                info['serial'] = serial
+            else: serial = ''
+            mac = sheet['G' + str(i)].value
+            if mac:
+                mac = str(mac).strip().replace("\n", "")
+                info['mac'] = mac
+            else: mac = ''
+            if sysname:
+                sysname_info[sysname.lower()] = info
+            if ip:
+                ip_info[ip] = info
+                # print(ip+"- \t"+sw+"\t"+sysname+"\t"+ceh+"\t"+description+"\t"+date+"\t"+position+"\t"+tsh+"\t"+model+"\t"+serial)
+
+##################################################################################
+print('Get info from \\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\Колпино\\Kolpino.xlsx')
+wb = openpyxl.load_workbook('\\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\Колпино\\Kolpino.xlsx')
+sheet = wb['Devices']
+rows = sheet.max_row
+# cols = sheet.max_column
+
+for i in range(1, rows):
+    info = {}
+    val = sheet['D'+str(i)].value
+    if val:
+        val = val.strip()
+        if re.match(r'^\d+\.\d+\.\d+\.\d+$', val):
+            ip = val
+            info['ip'] = ip
+            sysname = sheet['A' + str(i)].value
+            if sysname:
+                sysname = str(sysname).strip().replace("\n", "")
+                info['sysname'] = sysname
+            else:
+                sysname = ''
+            description = sheet['G' + str(i)].value
+            if description:
+                description = str(description).strip().replace("\n", "")
+                info['description'] = description
+            else:
+                description = ''
+            # date = sheet['P' + str(i)].value
+            # if date:
+            #     date = str(date)
+            #     info['date'] = date
+            # else:
+            #     date = ''
+            model = sheet['F' + str(i)].value
+            if model:
+                model = str(model).strip().replace("\n", "")
+                info['model'] = model
+            else:
+                model = ''
+            serial = sheet['H' + str(i)].value
+            if serial:
+                serial = str(serial).strip().replace("\n", "")
+                info['serial'] = serial
+            else: serial = ''
+            mac = sheet['I' + str(i)].value
+            if mac:
+                mac = str(mac).strip().replace("\n", "")
+                info['mac'] = mac
+            else: mac = ''
+            if sysname:
+                sysname_info[sysname.lower()] = info
+            if ip:
+                ip_info[ip] = info
+                # print(ip+"- \t"+sw+"\t"+sysname+"\t"+ceh+"\t"+description+"\t"+date+"\t"+position+"\t"+tsh+"\t"+model+"\t"+serial)
+
+##################################################################################
+print('Get info from \\\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\СС-Инвест\\Latvia_and_Poland\\Latvia\\Latvia Switches.xlsx')
+wb = openpyxl.load_workbook('\\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\СС-Инвест\\Latvia_and_Poland\\Latvia\\Latvia Switches.xlsx')
+sheet = wb['Devices']
+rows = sheet.max_row
+# cols = sheet.max_column
+
+for i in range(1, rows):
+    info = {}
+    val = sheet['B'+str(i)].value
+    if val:
+        val = val.strip()
+        if re.match(r'^\d+\.\d+\.\d+\.\d+$', val):
+            ip = val
+            info['ip'] = ip
+            sysname = sheet['C' + str(i)].value
+            if sysname:
+                sysname = str(sysname).strip().replace("\n", "")
+                info['sysname'] = sysname
+            else:
+                sysname = ''
+            description = sheet['D' + str(i)].value
+            if description:
+                description = str(description).strip().replace("\n", "")
+                info['description'] = description
+            else:
+                description = ''
+            # date = sheet['P' + str(i)].value
+            # if date:
+            #     date = str(date)
+            #     info['date'] = date
+            # else:
+            #     date = ''
+            model = sheet['F' + str(i)].value
+            if model:
+                model = str(model).strip().replace("\n", "")
+                info['model'] = model
+            else:
+                model = ''
+            serial = sheet['G' + str(i)].value
+            if serial:
+                serial = str(serial).strip().replace("\n", "")
+                info['serial'] = serial
+            else: serial = ''
+            mac = sheet['H' + str(i)].value
+            if mac:
+                mac = str(mac).strip().replace("\n", "")
+                info['mac'] = mac
+            else: mac = ''
+            if sysname:
+                sysname_info[sysname.lower()] = info
+            if ip:
+                ip_info[ip] = info
+                # print(ip+"- \t"+sw+"\t"+sysname+"\t"+ceh+"\t"+description+"\t"+date+"\t"+position+"\t"+tsh+"\t"+model+"\t"+serial)
+
+##################################################################################
+print('Get info from \\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\Гипрошахт\\Гипрошахт Active.xlsx')
+wb = openpyxl.load_workbook('\\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\Гипрошахт\\Гипрошахт Active.xlsx')
+sheet = wb['Active']
+rows = sheet.max_row
+# cols = sheet.max_column
+
+for i in range(1, rows):
+    info = {}
+    val = sheet['A'+str(i)].value
+    if val:
+        val = val.strip()
+        if re.match(r'^\d+\.\d+\.\d+\.\d+$', val):
+            ip = val
+            info['ip'] = ip
+            sysname = sheet['D' + str(i)].value
+            if sysname:
+                sysname = str(sysname).strip().replace("\n", "")
+                info['sysname'] = sysname
+            else:
+                sysname = ''
+            description = sheet['F' + str(i)].value
+            if description:
+                description = str(description).strip().replace("\n", "")
+                info['description'] = description
+            else:
+                description = ''
+            date = sheet['P' + str(i)].value
+            if date:
+                date = str(date)
+                info['date'] = date
+            else:
+                date = ''
+            model = sheet['H' + str(i)].value
+            if model:
+                model = str(model).strip().replace("\n", "")
+                info['model'] = model
+            else:
+                model = ''
+            serial = sheet['I' + str(i)].value
+            if serial:
+                serial = str(serial).strip().replace("\n", "")
+                info['serial'] = serial
+            else: serial = ''
+            mac = sheet['J' + str(i)].value
+            if mac:
+                mac = str(mac).strip().replace("\n", "")
+                info['mac'] = mac
+            else: mac = ''
+            if sysname:
+                sysname_info[sysname.lower()] = info
+            if ip:
+                ip_info[ip] = info
+                # print(ip+"- \t"+sw+"\t"+sysname+"\t"+ceh+"\t"+description+"\t"+date+"\t"+position+"\t"+tsh+"\t"+model+"\t"+serial)
+##################################################################################
+print('Get info from \\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\Олкон\\Olkon Active.xlsx')
+wb = openpyxl.load_workbook('\\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\Олкон\\Olcon Active.xlsx')
+sheet = wb['Active']
+rows = sheet.max_row
+# cols = sheet.max_column
+
+for i in range(1, rows):
+    info = {}
+    val = sheet['A'+str(i)].value
+    if val:
+        val = val.strip()
+        if re.match(r'^\d+\.\d+\.\d+\.\d+$', val):
+            ip = val
+            info['ip'] = ip
+            sysname = sheet['D' + str(i)].value
+            if sysname:
+                sysname = str(sysname).strip().replace("\n", "")
+                info['sysname'] = sysname
+            else:
+                sysname = ''
+            description = sheet['E' + str(i)].value
+            if description:
+                description = str(description).strip().replace("\n", "")
+                info['description'] = description
+            else:
+                description = ''
+            date = sheet['O' + str(i)].value
+            if date:
+                date = str(date)
+                info['date'] = date
+            else:
+                date = ''
+            model = sheet['G' + str(i)].value
+            if model:
+                model = str(model).strip().replace("\n", "")
+                info['model'] = model
+            else:
+                model = ''
+            serial = sheet['H' + str(i)].value
+            if serial:
+                serial = str(serial).strip().replace("\n", "")
+                info['serial'] = serial
+            else: serial = ''
+            mac = sheet['I' + str(i)].value
+            if mac:
+                mac = str(mac).strip().replace("\n", "")
+                info['mac'] = mac
+            else: mac = ''
+            if sysname:
+                sysname_info[sysname.lower()] = info
+            if ip:
+                ip_info[ip] = info
+                # print(ip+"- \t"+sw+"\t"+sysname+"\t"+ceh+"\t"+description+"\t"+date+"\t"+position+"\t"+tsh+"\t"+model+"\t"+serial)
+##################################################################################
+print('Get info from \\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\Воркута\\АСО_Воркута.xlsx')
+wb = openpyxl.load_workbook('\\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Предприятия\\Воркута\\АСО_Воркута.xlsx')
+sheet = wb['ACO']
+rows = sheet.max_row
+# cols = sheet.max_column
+
+for i in range(1, rows):
+    info = {}
+    val = sheet['A'+str(i)].value
+    if val:
+        val = val.strip()
+        if re.match(r'^\d+\.\d+\.\d+\.\d+$', val):
+            ip = val
+            info['ip'] = ip
+            sysname = sheet['C' + str(i)].value
+            if sysname:
+                sysname = str(sysname).strip().replace("\n", "")
+                info['sysname'] = sysname
+            else:
+                sysname = ''
+            date = sheet['I' + str(i)].value
+            if date:
+                date = str(date)
+                info['date'] = date
+            else:
+                date = ''
+            model = sheet['E' + str(i)].value
+            if model:
+                model = str(model).strip().replace("\n", "")
+                info['model'] = model
+            else:
+                model = ''
+            serial = sheet['F' + str(i)].value
+            if serial:
+                serial = str(serial).strip().replace("\n", "")
+                info['serial'] = serial
+            else: serial = ''
+            mac = sheet['G' + str(i)].value
+            if mac:
+                mac = str(mac).strip().replace("\n", "")
+                info['mac'] = mac
+            else: mac = ''
+            if sysname:
+                sysname_info[sysname.lower()] = info
+            if ip:
+                ip_info[ip] = info
+                # print(ip+"- \t"+sw+"\t"+sysname+"\t"+ceh+"\t"+description+"\t"+date+"\t"+position+"\t"+tsh+"\t"+model+"\t"+serial)
+#############################################################################################
+print('Get info from \\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Учет ресурсов\\ЧерМК Active.xlsx')
 wb = openpyxl.load_workbook('\\\\workspace.severstal.com@ssl\\CorporateInf\\IT\\NOC\\Cher\\NOC CHER\\Учет ресурсов\\ЧерМК Active.xlsx')
 sheet = wb['Active']
 rows = sheet.max_row
@@ -157,13 +485,13 @@ for i in range(1, rows):
             else: serial = ''
 
             if sysname:
-                if ip:
-                    ip_info[ip] = info
                 sysname_info[sysname.lower()] = info
+            if ip:
+                ip_info[ip] = info
                 # print(ip+"- \t"+sw+"\t"+sysname+"\t"+ceh+"\t"+description+"\t"+date+"\t"+position+"\t"+tsh+"\t"+model+"\t"+serial)
 
 ###############################################################################################################
-
+print('Get info from \\\\workspace.severstal.com@ssl\\project_office\\Infocom\\ArchPr\\pr2014\\Wi-Fi\\WiFi2\\Список точек доступа.xlsx')
 wb = openpyxl.load_workbook('\\\\workspace.severstal.com@ssl\\project_office\\Infocom\\ArchPr\\pr2014\\Wi-Fi\\WiFi2\\Список точек доступа.xlsx')
 sheet = wb['Список точек доступа']
 rows = sheet.max_row
@@ -235,6 +563,7 @@ for i in range(1, rows):
                 mac_info[mac.replace(':', '').replace('.', '').lower()] = info
             sysname_info[sysname.lower()] = info
             # print(ip+"- \t"+sysname+"\t"+description+"\t"+date+"\t"+position+"\t"+"\t"+model+"\t"+serial)
+
 ####################################################################################
 urllib3.disable_warnings()
 json_data = {

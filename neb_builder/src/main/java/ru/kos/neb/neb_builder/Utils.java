@@ -7433,9 +7433,9 @@ public class Utils {
                 Map<String, String> map1 = new HashMap();
                 String sysname = (String)info_map.get("remote_id");
                 if(sysname.equals("0")) sysname = null;
-                if(sysname != null) map1.put("sysname", sysname);
+                if(sysname != null && !sysname.equals("")) map1.put("sysname", sysname);
                 String model = (String)info_map.get("remote_version");
-                if(model != null) {
+                if(model != null && !model.equals("")) {
                     if(model.equals("0")) model = null;
                     if(model != null) map1.put("model", model);
                 }

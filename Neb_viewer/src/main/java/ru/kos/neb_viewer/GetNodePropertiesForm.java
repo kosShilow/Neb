@@ -158,7 +158,7 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
                 ((Map)(Main.INFORMATION).get("nodes_information")).get(ip) != null &&
                 ((Map)((Map)(Main.INFORMATION).get("nodes_information")).get(ip)).get("external") != null)
         {
-            Map<String, Map> external = (Map)((Map)((Map)(Main.INFORMATION).get("nodes_information")).get(ip)).get("external");
+            external = (Map)((Map)((Map)(Main.INFORMATION).get("nodes_information")).get(ip)).get("external");
             item_icon.clear();
             for(Map.Entry<String, Map> entry : external.entrySet()) {
                 String item = entry.getKey();
@@ -187,7 +187,7 @@ public class GetNodePropertiesForm extends javax.swing.JPanel
                 ((Map)(Main.INFORMATION).get("nodes_information")).get(ip) != null &&
                 ((Map)((Map)(Main.INFORMATION).get("nodes_information")).get(ip)).get("external") != null)
         {
-            external.clear();
+//            external.clear();
             external = (Map)((Map)((Map)(Main.INFORMATION).get("nodes_information")).get(ip)).get("external");
             int i = 0;
             jPanel_external_list.clear();

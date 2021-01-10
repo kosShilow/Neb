@@ -138,6 +138,7 @@ public class Neb {
         }
 
 ///////////////////////////////////////////////////////
+
 //        try {
 //            StandardAnalyzer analyzer = new StandardAnalyzer();
 //
@@ -239,7 +240,7 @@ public class Neb {
     
     
     
-//        Map INFO = utils.ReadJSONFile("neb.map");
+//        Map INFO = utils.ReadJSONFile("info9");
 //        Map<String, ArrayList> area_forks1 = utils.GetForkList(INFO);
 //        ArrayList<String> list = utils.ReadFileToList("arp_mac_table_area_chermk");
 //        ArrayList<String[]> node_ip_mac = new ArrayList();
@@ -691,6 +692,12 @@ public class Neb {
                         // write to file nodes_information
                         utils.MapToFile((Map) informationFromNodesAllAreas, "info10");
                       
+                        // Normalization information map
+                        logger.Println("Normalization information map 2 cicle.", logger.DEBUG);
+                        informationFromNodesAllAreas = utils.NormalizeMap2(informationFromNodesAllAreas);                        
+                        
+                        // write to file nodes_information
+                        utils.MapToFile((Map) informationFromNodesAllAreas, "info11");
                         
                         // replace map file to history
                         logger.Println("Replace map file to history", logger.DEBUG);

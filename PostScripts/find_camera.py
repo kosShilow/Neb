@@ -111,6 +111,8 @@ print("Stop get Neb node info.")
 if DEBUG: logging.debug("Stop get Neb node info.")
 
 for area in neb_info:
+    # if area != "area_chermk":
+    #     continue
     # logging.info("Starting area - " + area + " ...")
     print("Starting area - " + area + " ...")
     if DEBUG: logging.debug("Starting area - " + area + " ...")
@@ -120,7 +122,7 @@ for area in neb_info:
     mac_ip_port = neb_info.get(area).get("mac_ip_port")
     if nodes_information and links and mac_ip_port:
         for node in nodes_information:
-            # if node != "10.96.200.23":
+            # if node != "10.112.199.65(accc.8efd.b90f)":
             #     continue
             node_info = nodes_information[node]
 

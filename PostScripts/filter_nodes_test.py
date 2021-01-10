@@ -60,9 +60,6 @@ filters.append('Gi0')
 filters.append('port-001')
 filters.append('E1212-T')
 filters.append('MOTOTRBO Repeater')
-filters.append('^([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}$')
-filters.append('^([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}$')
-filters.append('^([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}$')
 
 exclude_mac = []
 exclude_mac.append('c8:87:3b:00:25:bb')
@@ -73,7 +70,7 @@ exclude_sysname.append('SEP[0-9a-f]+.*')
 exclude_sysname.append('0')
 exclude_sysname.append('NPIA-.*')
 exclude_sysname.append('T19P-.*')
-# exclude_sysname.append('Managed Redundant Switch.*')
+exclude_sysname.append('Managed Redundant Switch.*')
 exclude_sysname.append('port-001')
 exclude_sysname.append('NP5410')
 exclude_sysname.append('NP\d+.*')
@@ -88,22 +85,8 @@ exclude_sysname.append('not advertised.*')
 exclude_sysname.append('^[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]\.[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]\.[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]$')
 exclude_sysname.append('^[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]$')
 exclude_sysname.append('--')
-# exclude_sysname.append('Switch')
-# exclude_sysname.append('switch')
-
-include_sysname = []
-include_sysname.append('^AP([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}$')
-include_sysname.append('^AP([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}$')
-include_sysname.append('^AP([0-9a-fA-F]){12}$')
-include_sysname.append('^Cher.*$')
-include_sysname.append('^CS2960.*$')
-
-include_ident = []
-include_ident.append('^9$')
-include_ident.append('^AXIS.*$')
-include_ident.append('^Cisco Firepower Threat Defense.*$')
-include_ident.append('^CIVS-IPC-.*$')
-
+exclude_sysname.append('Switch')
+exclude_sysname.append('switch')
 ###################################################
 
 def get_neb_info():
@@ -302,134 +285,136 @@ for area in neb_info:
     nodes_delete = []
     if nodes_information:
         for node in nodes_information:
-            is_delete = False
             # print("node - "+node)
-            # if node == "10.96.242.92":
+            # if node == "Switch":
             #     print("node - " + node)
-            # else:
-            #     continue
             general = nodes_information.get(node).get("general")
             if general:
                 sysdescription = nodes_information.get(node).get("general").get("sysDescription")
                 model = nodes_information.get(node).get("general").get("model")
                 if not (sysdescription == "Axis camera" or sysdescription == "Beward camera" or model == "AP"):
-                    sysname = nodes_information.get(node).get("general").get("sysname")
                     sys_ident = ""
                     if sysdescription:
                         sys_ident = sysdescription
                     if model:
                         sys_ident = model
-
-                    # include am sysname
-                    is_include_sysname = False
-                    if sysname:
-                        found = False
-                        for include in include_sysname:
-                            p = re.compile(include.lower())
-                            if p.match(sysname.lower()):
-                                found = True
-                                break
-                        if found:
-                            is_include_sysname = True
-
-                    # include am ident
-                    is_include_ident = False
                     if sys_ident:
                         found = False
-                        for include in include_ident:
-                            p = re.compile(include.lower())
+                        for filter in filters:
+                            p = re.compile(filter.lower())
                             if p.match(sys_ident.lower()):
                                 found = True
                                 break
                         if found:
-                            is_include_ident = True
+                            # found_mip = False
+                            # for mip in mac_ip_port:
+                            #     if mip[2] == node and mip[1] != mip[2]:
+                            #         found_mip = True
+                            #         break
+                            neighbour_node = {}
+                            if links:
+                                for link in links:
+                                    if link[0] == node:
+                                        neighbour_node[link[3]] = link[3]
+                                    if link[3] == node:
+                                        neighbour_node[link[0]] = link[0]
 
-                    if not (is_include_sysname or is_include_ident):
-                        if sys_ident:
-                            found = False
-                            for filter in filters:
-                                p = re.compile(filter.lower())
-                                if p.match(sys_ident.lower()):
-                                    found = True
-                                    break
-                            if found:
-                                neighbour_node = {}
-                                if links:
-                                    for link in links:
-                                        if link[0] == node:
-                                            neighbour_node[link[3]] = link[3]
-                                        if link[3] == node:
-                                            neighbour_node[link[0]] = link[0]
-
-                                # if not found_mip and num_link <= 1:
-                                if len(neighbour_node) <= 1:
-                                    nodes_delete.append(node)
-                                    is_delete = True
-                                    # print("node delete: " + node + ": " + str(general))
-
-                        # filter am mac address
-                        base_address = nodes_information.get(node).get("general").get("base_address")
-                        if base_address:
-                            found = False
-                            for filter in exclude_mac:
-                                p = re.compile(filter.lower())
-                                if p.match(base_address.lower()):
-                                    found = True
-                                    break
-                            if found:
-                                neighbour_node = {}
-                                if links:
-                                    for link in links:
-                                        if link[0] == node:
-                                            neighbour_node[link[3]] = link[3]
-                                        if link[3] == node:
-                                            neighbour_node[link[0]] = link[0]
-
-                                # if not found_mip and num_link <= 1:
-                                if len(neighbour_node) <= 1:
-                                    nodes_delete.append(node)
-                                    is_delete = True
-                                    # print("node delete: " + node + ": " + str(general))
-
-                        # filter am sysname
-                        sysname = nodes_information.get(node).get("general").get("sysname")
-                        if sysname:
-                            found = False
-                            for filter in exclude_sysname:
-                                p = re.compile(filter.lower())
-                                if p.match(sysname.lower()):
-                                    found = True
-                                    break
-                            if found:
-                                neighbour_node = {}
-                                if links:
-                                    for link in links:
-                                        if link[0] == node:
-                                            neighbour_node[link[3]] = link[3]
-                                        if link[3] == node:
-                                            neighbour_node[link[0]] = link[0]
-
+                            # if not found_mip and num_link <= 1:
+                            if len(neighbour_node) <= 1:
                                 nodes_delete.append(node)
-                                is_delete = True
-                        # else:
-                        #     neighbour_node = {}
-                        #     if links:
-                        #         for link in links:
-                        #             if link[0] == node:
-                        #                 neighbour_node[link[3]] = link[3]
-                        #             if link[3] == node:
-                        #                 neighbour_node[link[0]] = link[0]
-                        #
-                        #     # if not found_mip and num_link <= 1:
-                        #     if len(neighbour_node) <= 1:
-                        #         nodes_delete.append(node)
-                        #         is_delete = True
-                        #         # print("node delete: " + node + ": " + str(general))
+                                # print("node delete: " + node + ": " + str(general))
+                                out1.write("node: " + node + ": " + str(general)+'\n')
+                            else:
+                                out2.write("node: " + node + ": " + str(general) + '\n')
+                        else:
+                            out2.write("node: " + node + ": " + str(general)+'\n')
 
-            if is_delete:
-                out1.write("node: " + node + ": " + str(general) + '\n')
-            else:
-                out2.write("node: " + node + ": " + str(general) + '\n')
+                    # filter am mac address
+                    base_address = nodes_information.get(node).get("general").get("base_address")
+                    if base_address:
+                        found = False
+                        for filter in exclude_mac:
+                            p = re.compile(filter.lower())
+                            if p.match(base_address.lower()):
+                                found = True
+                                break
+                        if found:
+                            # found_mip = False
+                            # for mip in mac_ip_port:
+                            #     if mip[2] == node and mip[1] != mip[2]:
+                            #         found_mip = True
+                            #         break
+                            neighbour_node = {}
+                            if links:
+                                for link in links:
+                                    if link[0] == node:
+                                        neighbour_node[link[3]] = link[3]
+                                    if link[3] == node:
+                                        neighbour_node[link[0]] = link[0]
+
+                            # if not found_mip and num_link <= 1:
+                            if len(neighbour_node) <= 1:
+                                nodes_delete.append(node)
+                                # print("node delete: " + node + ": " + str(general))
+                                out1.write("node: " + node + ": " + str(general)+'\n')
+                            else:
+                                out2.write("node: " + node + ": " + str(general) + '\n')
+                        else:
+                            out2.write("node: " + node + ": " + str(general)+'\n')
+
+                    # filter am sysname
+                    sysname = nodes_information.get(node).get("general").get("sysname")
+                    if sysname:
+                        found = False
+                        for filter in exclude_sysname:
+                            p = re.compile(filter.lower())
+                            if p.match(sysname.lower()):
+                                found = True
+                                break
+                        if found:
+                            # found_mip = False
+                            # for mip in mac_ip_port:
+                            #     if mip[2] == node and mip[1] != mip[2]:
+                            #         found_mip = True
+                            #         break
+                            neighbour_node = {}
+                            if links:
+                                for link in links:
+                                    if link[0] == node:
+                                        neighbour_node[link[3]] = link[3]
+                                    if link[3] == node:
+                                        neighbour_node[link[0]] = link[0]
+
+                            nodes_delete.append(node)
+                            out1.write("node: " + node + ": " + str(general)+'\n')
+                            # # if not found_mip and num_link <= 1:
+                            # if len(neighbour_node) <= 1:
+                            #     nodes_delete.append(node)
+                            #     # print("node delete: " + node + ": " + str(general))
+                            #     out1.write("node: " + node + ": " + str(general)+'\n')
+                            # else:
+                            #     out2.write("node: " + node + ": " + str(general) + '\n')
+                        else:
+                            out2.write("node: " + node + ": " + str(general)+'\n')
+                    else:
+                        # found_mip = False
+                        # for mip in mac_ip_port:
+                        #     if mip[2] == node and mip[1] != mip[2]:
+                        #         found_mip = True
+                        #         break
+                        neighbour_node = {}
+                        if links:
+                            for link in links:
+                                if link[0] == node:
+                                    neighbour_node[link[3]] = link[3]
+                                if link[3] == node:
+                                    neighbour_node[link[0]] = link[0]
+
+                        # if not found_mip and num_link <= 1:
+                        if len(neighbour_node) <= 1:
+                            nodes_delete.append(node)
+                            # print("node delete: " + node + ": " + str(general))
+                            out1.write("node: " + node + ": " + str(general) + '\n')
     if nodes_delete:
         area_node_delete[area] = nodes_delete
 

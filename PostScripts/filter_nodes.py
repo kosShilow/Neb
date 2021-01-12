@@ -61,8 +61,16 @@ filters.append('port-001')
 filters.append('E1212-T')
 filters.append('MOTOTRBO Repeater')
 filters.append('^([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}$')
+filters.append('^([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}$')
 filters.append('^([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}$')
 filters.append('^([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}$')
+filters.append('^\(([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\)$')
+filters.append('^\(([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}\)$')
+filters.append('^\(([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}\)$')
+filters.append('^\(([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}\)$')
+filters.append('.*MTZ.*')
+filters.append(',MTc6V')
+filters.append('GXP\d+')
 
 exclude_mac = []
 exclude_mac.append('c8:87:3b:00:25:bb')
@@ -85,11 +93,32 @@ exclude_sysname.append('idrac-.*')
 exclude_sysname.append('infra04.severstal.severstalgroup.com')
 exclude_sysname.append('not_advertised.*')
 exclude_sysname.append('not advertised.*')
-exclude_sysname.append('^[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]\.[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]\.[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]$')
-exclude_sysname.append('^[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]$')
+exclude_sysname.append('^([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}$')
+exclude_sysname.append('^([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}$')
+exclude_sysname.append('^([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}$')
+exclude_sysname.append('^([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}$')
+exclude_sysname.append('^\(([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\)$')
+exclude_sysname.append('^\(([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}\)$')
+exclude_sysname.append('^\(([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}\)$')
+exclude_sysname.append('^\(([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}\)$')
 exclude_sysname.append('--')
 # exclude_sysname.append('Switch')
 # exclude_sysname.append('switch')
+
+exclude_node = []
+exclude_node.append('^([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}$')
+exclude_node.append('^([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}$')
+exclude_node.append('^([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}$')
+exclude_node.append('^([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}$')
+exclude_node.append('^\(([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\)$')
+exclude_node.append('^\(([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}\)$')
+exclude_node.append('^\(([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}:([0-9a-fA-F]){2}\)$')
+exclude_node.append('^\(([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}-([0-9a-fA-F]){2}\)$')
+exclude_node.append('^10\.124\.248\.206$')
+exclude_node.append('^10\.124\.248\.207$')
+exclude_node.append('^10\.96\.140\.253$')
+exclude_node.append('^10\.115\.11\.62$')
+
 
 include_sysname = []
 include_sysname.append('^AP([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}\.([0-9a-fA-F]){4}$')
@@ -304,7 +333,7 @@ for area in neb_info:
         for node in nodes_information:
             is_delete = False
             # print("node - "+node)
-            # if node == "10.96.242.92":
+            # if node == "10.96.188.113":
             #     print("node - " + node)
             # else:
             #     continue
@@ -367,13 +396,58 @@ for area in neb_info:
                                     is_delete = True
                                     # print("node delete: " + node + ": " + str(general))
 
-                        # filter am mac address
-                        base_address = nodes_information.get(node).get("general").get("base_address")
-                        if base_address:
+                        if not is_delete:
+                            # filter am mac address
+                            base_address = nodes_information.get(node).get("general").get("base_address")
+                            if base_address:
+                                found = False
+                                for filter in exclude_mac:
+                                    p = re.compile(filter.lower())
+                                    if p.match(base_address.lower()):
+                                        found = True
+                                        break
+                                if found:
+                                    neighbour_node = {}
+                                    if links:
+                                        for link in links:
+                                            if link[0] == node:
+                                                neighbour_node[link[3]] = link[3]
+                                            if link[3] == node:
+                                                neighbour_node[link[0]] = link[0]
+
+                                    # if not found_mip and num_link <= 1:
+                                    if len(neighbour_node) <= 1:
+                                        nodes_delete.append(node)
+                                        is_delete = True
+                                        # print("node delete: " + node + ": " + str(general))
+
+                        if not is_delete:
+                           # filter am sysname
+                            sysname = nodes_information.get(node).get("general").get("sysname")
+                            if sysname:
+                                found = False
+                                for filter in exclude_sysname:
+                                    p = re.compile(filter.lower())
+                                    if p.match(sysname.lower()):
+                                        found = True
+                                        break
+                                if found:
+                                    neighbour_node = {}
+                                    if links:
+                                        for link in links:
+                                            if link[0] == node:
+                                                neighbour_node[link[3]] = link[3]
+                                            if link[3] == node:
+                                                neighbour_node[link[0]] = link[0]
+                                    if len(neighbour_node) <= 1:
+                                        nodes_delete.append(node)
+                                        is_delete = True
+
+                        if not is_delete:
                             found = False
-                            for filter in exclude_mac:
+                            for filter in exclude_node:
                                 p = re.compile(filter.lower())
-                                if p.match(base_address.lower()):
+                                if p.match(node.lower()):
                                     found = True
                                     break
                             if found:
@@ -389,42 +463,6 @@ for area in neb_info:
                                 if len(neighbour_node) <= 1:
                                     nodes_delete.append(node)
                                     is_delete = True
-                                    # print("node delete: " + node + ": " + str(general))
-
-                        # filter am sysname
-                        sysname = nodes_information.get(node).get("general").get("sysname")
-                        if sysname:
-                            found = False
-                            for filter in exclude_sysname:
-                                p = re.compile(filter.lower())
-                                if p.match(sysname.lower()):
-                                    found = True
-                                    break
-                            if found:
-                                neighbour_node = {}
-                                if links:
-                                    for link in links:
-                                        if link[0] == node:
-                                            neighbour_node[link[3]] = link[3]
-                                        if link[3] == node:
-                                            neighbour_node[link[0]] = link[0]
-
-                                nodes_delete.append(node)
-                                is_delete = True
-                        # else:
-                        #     neighbour_node = {}
-                        #     if links:
-                        #         for link in links:
-                        #             if link[0] == node:
-                        #                 neighbour_node[link[3]] = link[3]
-                        #             if link[3] == node:
-                        #                 neighbour_node[link[0]] = link[0]
-                        #
-                        #     # if not found_mip and num_link <= 1:
-                        #     if len(neighbour_node) <= 1:
-                        #         nodes_delete.append(node)
-                        #         is_delete = True
-                        #         # print("node delete: " + node + ": " + str(general))
 
             if is_delete:
                 out1.write("node: " + node + ": " + str(general) + '\n')

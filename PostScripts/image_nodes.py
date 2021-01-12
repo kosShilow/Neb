@@ -260,6 +260,8 @@ mas = ['.*Cisco\s+CSS.*', 'images/Cisco/CSS.png']
 replaces.append(mas)
 mas = ['.*Cisco\s+SF\s+302-08.*', 'images/Cisco/SF-302-8.png']
 replaces.append(mas)
+mas = ['.*IE2000.*', 'images/Cisco/IE-2000.png']
+replaces.append(mas)
 mas = ['.*DES-.*', 'images/Dlink/3226S.png']
 replaces.append(mas)
 mas = ['.*DES-3526.*', 'images/Dlink/3526.png']
@@ -353,6 +355,8 @@ replaces.append(mas)
 mas = ['EDSP.*', 'images/MOXA/MOXA.png']
 replaces.append(mas)
 mas = ['.*MOXA.*', 'images/MOXA/MOXA.png']
+replaces.append(mas)
+mas = ['Managed Redundant Switch.*', 'images/MOXA/MOXA.png']
 replaces.append(mas)
 mas = ['.*AWK4121.*', 'images/MOXA/MOXA.png']
 replaces.append(mas)
@@ -459,6 +463,8 @@ replaces.append(mas)
 mas = ['Revision F\.\d+\.\d+.*', 'images/HP/2424.png']
 replaces.append(mas)
 mas = ['.*AC6508.*', 'images/Huawei/AC6508.png']
+replaces.append(mas)
+mas = ['GS510TP', 'images/Netgear/GS510TP.png']
 replaces.append(mas)
 
 replaces1 = []

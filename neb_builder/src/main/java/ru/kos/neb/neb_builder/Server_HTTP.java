@@ -499,8 +499,6 @@ class FindFullTextInfo implements HttpHandler {
                                     }
                                     
     //                                System.out.println((i + 1) + ". " + d.get("text") + "\t" + d.get("area") + "\t" + d.get("node"));
-                                } else {
-                                    break;
                                 }
                             }
                             

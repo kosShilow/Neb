@@ -4352,7 +4352,7 @@ public class Utils {
         }
 
         if (select_map_filename != null && area != null && name_node_port.size() == 3) {
-            if(new File(Main.map_filename).getName().equals(new File(select_map_filename)) && ControlPanel.area_select.equals(area)) {
+            if(new File(Main.map_filename).getName().equals(new File(select_map_filename).getName()) && ControlPanel.area_select.equals(area)) {
                 SetPositionToNode(name_node_port);
             } else {
                 for (int i = 0; i < Main.history_list.size(); i++) {
@@ -4388,11 +4388,11 @@ public class Utils {
                             ControlPanel.area_select = area;
                         }
                         
-                        try { Thread.sleep(500); } catch(java.lang.InterruptedException e) {}
+                        try { Thread.sleep(1000); } catch(java.lang.InterruptedException e) {}
                         while(true) {
                             if(!Main.isBusy) {
 //                                System.out.println("Set position.");
-                                try { Thread.sleep(500); } catch(java.lang.InterruptedException e) {}
+                                try { Thread.sleep(3000); } catch(java.lang.InterruptedException e) {}
                                 SetPositionToNode(name_node_port);
                                 break;
                             } else
@@ -4417,7 +4417,7 @@ public class Utils {
             name_node_port.add(node);
             name_node_port.add("");            
             
-            if(new File(Main.map_filename).getName().equals(new File(Main.map_file)) && ControlPanel.area_select.equals(area)) {
+            if(new File(Main.map_filename).getName().equals(new File(Main.map_file).getName()) && ControlPanel.area_select.equals(area)) {
                 SetPositionToNode(name_node_port);
             } else {
                 TimeMachineForm.selector = Main.history_list.size()-1;
@@ -4432,7 +4432,7 @@ public class Utils {
                         area_description.put(area_name, area_name);
                     }
                 }
-
+                
                 if(!(new File(Main.map_filename).getName()).equals(new File(Main.map_file).getName()))
                     Main.utils.SetTimeMachine(Main.history_list, TimeMachineForm.selector, ControlPanel.area_select);
 
@@ -4450,15 +4450,15 @@ public class Utils {
                     ControlPanel.area_select = area;
                 }
 
-                try { Thread.sleep(500); } catch(java.lang.InterruptedException e) {}
+                try { Thread.sleep(1000); } catch(java.lang.InterruptedException e) {}
                 while(true) {
                     if(!Main.isBusy) {
-//                                System.out.println("Set position.");
-                        try { Thread.sleep(500); } catch(java.lang.InterruptedException e) {}
+//                        System.out.println("Set position.");
+                        try { Thread.sleep(3000); } catch(java.lang.InterruptedException e) {}
                         SetPositionToNode(name_node_port);
                         break;
                     } else
-//                                System.out.println("Is busy.");
+//                        System.out.println("Is busy.");
                         try { Thread.sleep(100); } catch(java.lang.InterruptedException e) {}
                 }
 

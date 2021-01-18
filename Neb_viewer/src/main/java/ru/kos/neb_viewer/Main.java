@@ -287,7 +287,7 @@ public class Main extends PFrame {
         jTree1.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
-                find_field.requestFocus();
+//                find_field.requestFocus();
             }
         });
 
@@ -296,6 +296,24 @@ public class Main extends PFrame {
                 jTree1MouseClicked(evt);
             }
         });
+        
+        jTree1.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    jTree1KeyEnter(e);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+            
+        });
 
         jScrollPane1.setViewportView(jTree1);
         
@@ -303,25 +321,83 @@ public class Main extends PFrame {
         full_text_search_result = new JList<String>(dlm);  
 //        full_text_search_result.setCellRenderer(new CustomListRenderer());
 
-        full_text_search_result.addListSelectionListener(new ListSelectionListener() {
+        full_text_search_result.addMouseListener(new MouseAdapter() {
             @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int lastIndex = ((JList) e.getSource()).getSelectedIndex();
-                    if(index_area_node.get(lastIndex) != null && index_area_node.get(lastIndex).length == 3) {
-                        String item = index_area_node.get(lastIndex)[0];
-                        String area = index_area_node.get(lastIndex)[1];
-                        String node = index_area_node.get(lastIndex)[2];
-                        System.out.println(lastIndex+" - "+item+" "+area+" "+node);
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList)evt.getSource(); 
+                int index = list.locationToIndex(evt.getPoint());
+                if(index_area_node.get(index) != null && index_area_node.get(index).length == 3) {
+                    String item = index_area_node.get(index)[0];
+                    String area = index_area_node.get(index)[1];
+                    String node = index_area_node.get(index)[2];
+                    System.out.println(index+" - "+item+" "+area+" "+node);
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new Utils().LoadAndPositionMap(area, node);
+                        }
+                    });
+                    t.start();
+                    full_text_search_result.requestFocus();
+    //                new Utils().LoadAndPositionMap(area, node);
+                }
+
+            }
+        });
+        
+        full_text_search_result.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    JList list = (JList)e.getSource(); 
+                    int index = list.getSelectedIndex();
+                    if(index_area_node.get(index) != null && index_area_node.get(index).length == 3) {
+                        String item = index_area_node.get(index)[0];
+                        String area = index_area_node.get(index)[1];
+                        String node = index_area_node.get(index)[2];
+                        System.out.println(index+" - "+item+" "+area+" "+node);
                         Thread t = new Thread(new Runnable() {
+                            @Override
                             public void run() {
                                 new Utils().LoadAndPositionMap(area, node);
                             }
                         });
-                        t.start(); 
+                        t.start();
+                        full_text_search_result.requestFocus();
         //                new Utils().LoadAndPositionMap(area, node);
                     }
                 }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+            
+        });        
+
+        full_text_search_result.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+//                if (!e.getValueIsAdjusting()) {
+//                    int lastIndex = ((JList) e.getSource()).getSelectedIndex();
+//                    if(index_area_node.get(lastIndex) != null && index_area_node.get(lastIndex).length == 3) {
+//                        String item = index_area_node.get(lastIndex)[0];
+//                        String area = index_area_node.get(lastIndex)[1];
+//                        String node = index_area_node.get(lastIndex)[2];
+//                        System.out.println(lastIndex+" - "+item+" "+area+" "+node);
+//                        Thread t = new Thread(new Runnable() {
+//                            public void run() {
+//                                new Utils().LoadAndPositionMap(area, node);
+//                            }
+//                        });
+//                        t.start(); 
+//        //                new Utils().LoadAndPositionMap(area, node);
+//                    }
+//                }
 
             }
         });        
@@ -385,7 +461,7 @@ public class Main extends PFrame {
         
         find_field.setBackground(Color.WHITE);
         find_field.selectAll();
-        find_field.requestFocus();
+//        find_field.requestFocus();
 
         //=========================================================
         // Now search
@@ -406,7 +482,7 @@ public class Main extends PFrame {
                     } else {
                         find_field.setBackground(new Color(255, 150, 150));
                         find_field.selectAll();
-                        find_field.requestFocus();                        
+//                        find_field.requestFocus();                        
                     }
                 }
             } else if (macButton.isSelected()) {
@@ -434,6 +510,7 @@ public class Main extends PFrame {
                     jTree1.setRootVisible(false);
                     jTree1.expandRow(0);
                     jTree1.repaint();
+                    jTree1.requestFocus();
                 }
             } else {
                 String url = "http://" + Main.neb_server + ":" + Main.neb_server_port + "/find_full_text?key=" + URLEncoder.encode(find_str, "UTF-8");
@@ -453,6 +530,7 @@ public class Main extends PFrame {
                         }
                         
                     }
+                    full_text_search_result.requestFocus();
 //                    System.out.println(result);
                 }
             }
@@ -466,7 +544,7 @@ public class Main extends PFrame {
     }
 
     private void jTree1TreeWillExpand(javax.swing.event.TreeExpansionEvent evt) throws javax.swing.tree.ExpandVetoException {
-        find_field.requestFocus();
+//        find_field.requestFocus();
         for (int i = 0; i < jTree1.getRowCount(); i++) {
             jTree1.collapseRow(i);
         }
@@ -494,23 +572,26 @@ public class Main extends PFrame {
     }
 
     private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {
-        int selRow = jTree1.getRowForLocation(evt.getX(), evt.getY());
         TreePath selPath = jTree1.getSelectionPath();
         if (selPath != null && selPath.getPath().length == 3) {
-            if (selRow != -1) {
-                if (evt.getClickCount() == 2) {
-                    new Utils().LoadAndPositionMapFromTree(selPath);
-                }
-            }
+            new Utils().LoadAndPositionMapFromTree(selPath);
         }
-        find_field.requestFocus();
+        jTree1.requestFocus();
     }
     
-    private void full_text_search_result_MouseClicked(java.awt.event.MouseEvent evt) {
-        
-        System.out.println("11111111");
-
-    }            
+    private void jTree1KeyEnter(java.awt.event.KeyEvent evt) {
+        TreePath selPath = jTree1.getSelectionPath();
+        if (selPath != null && selPath.getPath().length == 3) {
+            new Utils().LoadAndPositionMapFromTree(selPath);
+        }
+        jTree1.requestFocus();
+    }    
+    
+//    private void full_text_search_result_MouseClicked(java.awt.event.MouseEvent evt) {
+//        
+//        System.out.println("11111111");
+//
+//    }            
 
 /////////////////// Main //////////////////////////////////////////////////
     public static void main(String[] args) {
@@ -1145,7 +1226,7 @@ class ListenerActionRadioButton implements ActionListener {
         Main.macButton.setSelected(false);
         Main.sysnameButton.setSelected(false);
 
-        Main.find_field.requestFocus();
+//        Main.find_field.requestFocus();
 //        find_field.setFormatterFactory(new DefaultFormatterFactory());
         Main.find_field.setText("");
 

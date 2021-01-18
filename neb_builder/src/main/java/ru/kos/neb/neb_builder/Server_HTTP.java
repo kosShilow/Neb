@@ -432,7 +432,9 @@ class FindFullTextInfo implements HttpHandler {
                     if(key != null) {
                         try {
                             key = key.replaceAll("\\++", " ");
-                            String[] mas = key.split(" ");
+                            String query_str = key;
+                            
+//                            String[] mas = key.split(" ");
 //                            for(int i = 0; i < mas.length; i++) {
 //                                char[] mas1 = mas[i].toCharArray();
 //                                for(char s : mas1) {
@@ -443,10 +445,10 @@ class FindFullTextInfo implements HttpHandler {
 //                                    }
 //                                }                                     
 //                            }
-                            String query_str = mas[0];
-                            for(int i = 1; i < mas.length; i++) {
-                                query_str = query_str +" AND "+ mas[i];
-                            }                            
+//                            String query_str = mas[0];
+//                            for(int i = 1; i < mas.length; i++) {
+//                                query_str = query_str +" AND "+ mas[i];
+//                            }
                             
                             StandardAnalyzer analyzer = new StandardAnalyzer();
                             final Directory index = FSDirectory.open(Paths.get(Neb.index_dir));
@@ -467,18 +469,11 @@ class FindFullTextInfo implements HttpHandler {
                                 int docId = hits[i].doc;
                                 Document d = searcher.doc(docId);
                                     
-                                String text = d.get("text").replace("\n", " ");
-                                boolean find = false;
-                                for(int ii = 0; ii < mas.length; ii++) {
-                                    String pattern = mas[ii].replace("*", ".+").replace("?", ".").toLowerCase();
-                                    Pattern p = Pattern.compile(pattern);
-                                    Matcher m = p.matcher(text.toLowerCase());
-                                    if(m.find()) {
-                                        find = true;
-                                        break;
-                                    }
-                                }
-                                if(find) {
+                                String text = d.get("text").replace("\n", " ").replace("\r", "");
+                                String pattern = query_str.replace("*", ".+").replace("?", ".").toLowerCase();
+                                Pattern p = Pattern.compile(pattern);
+                                Matcher m = p.matcher(text.toLowerCase());
+                                if(m.find()) {
                                     String area = d.get("area");
                                     String node = d.get("node");
                                     String sysname = "";
@@ -491,13 +486,9 @@ class FindFullTextInfo implements HttpHandler {
                                     if(area_node_attribute.get(area+"-"+node) == null) {
                                         String str = text + ";" + area + ";" + node + ";" + sysname + "\n";
                                         area_node_attribute.put(area+"-"+node, str);
-                                        
-                                    } else {
-                                        text = area_node_attribute.get(area+"-"+node).split(";")[0]+", "+text;
-                                        String str = text + ";" + area + ";" + node + ";" + sysname + "\n";
-                                        area_node_attribute.put(area+"-"+node, str);                                        
+
                                     }
-                                    
+
     //                                System.out.println((i + 1) + ". " + d.get("text") + "\t" + d.get("area") + "\t" + d.get("node"));
                                 }
                             }
